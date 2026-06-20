@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import Link from 'next/link'
 import { useSession, signOut } from 'next-auth/react'
 import { Button } from '@/components/ui/button'
@@ -11,11 +12,16 @@ export function Navigation() {
     <nav className="fixed top-0 z-50 w-full bg-background/80 backdrop-blur-md border-b border-border">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          <Link href="/" className="flex items-center gap-2 group">
-            <div className="w-10 h-10 bg-gradient-to-br from-primary to-accent rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold">CX</span>
+          <Link href="/" className="flex items-center gap-3 group">
+            <div className="relative w-40 h-12 sm:w-48 sm:h-14">
+              <Image
+                src="/logo without background.png"
+                alt="ConnectX Solutions logo"
+                fill
+                className="object-contain"
+                priority
+              />
             </div>
-            <span className="text-xl font-bold text-foreground group-hover:text-primary transition-colors">ConnectX</span>
           </Link>
 
           <div className="hidden md:flex gap-8">

@@ -84,7 +84,7 @@ export default function EditProject() {
             <p className="text-muted-foreground mt-2">Update project details</p>
           </div>
 
-          <form onSubmit={handleSubmit} className="bg-card border border-border rounded-xl p-8 space-y-6">
+          <form onSubmit={handleSubmit} encType="multipart/form-data" className="bg-card border border-border rounded-xl p-8 space-y-6">
             {error && (
               <div className="p-4 bg-destructive/10 border border-destructive/30 rounded-lg text-destructive text-sm">
                 {error}
@@ -150,6 +150,36 @@ export default function EditProject() {
                 placeholder="Detailed project content"
               />
             </div>
+
+            {project.image && (
+              <div className="rounded-xl overflow-hidden border border-border mb-6">
+                <div className="text-sm font-semibold text-foreground px-4 py-2 bg-card">Current image</div>
+                <div className="relative h-64">
+                  <Image
+                    src={project.image}
+                    alt="Current project image"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+              </div>
+            )}
+
+            <div>
+              <label htmlFor="image" className="block text-sm font-semibold text-foreground mb-2">
+                Upload new image
+              </label>
+              <input
+                type="file"
+                id="image"
+                name="image"
+                accept="image/*"
+                className="w-full text-sm text-foreground file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border file:border-border file:bg-primary/10 file:text-primary file:font-semibold file:hover:bg-primary/20"
+              />
+              <p className="text-sm text-muted-foreground mt-2">Leave blank to keep the existing image.</p>
+            </div>
+
+            <input type="hidden" name="currentImage" value={project.image ?? ''} />
 
             <div>
               <label htmlFor="tags" className="block text-sm font-semibold text-foreground mb-2">

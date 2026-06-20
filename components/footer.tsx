@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import Link from 'next/link'
 import { Mail, Phone, MapPin } from 'lucide-react'
 
@@ -8,11 +9,16 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
           {/* Brand */}
           <div>
-            <div className="flex items-center gap-2 mb-4">
-              <div className="w-10 h-10 bg-gradient-to-br from-primary to-accent rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold">CX</span>
+            <div className="flex items-center gap-3 mb-4">
+              <div className="relative w-40 h-12 sm:w-48 sm:h-14">
+                <Image
+                  src="/logo without background.png"
+                  alt="ConnectX Solutions logo"
+                  fill
+                  className="object-contain"
+                  priority
+                />
               </div>
-              <span className="text-lg font-bold text-foreground">ConnectX</span>
             </div>
             <p className="text-sm text-muted-foreground">Transforming businesses through digital innovation.</p>
           </div>

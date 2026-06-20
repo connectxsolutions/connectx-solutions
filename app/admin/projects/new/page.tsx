@@ -42,7 +42,7 @@ export default function NewProject() {
             <p className="text-muted-foreground mt-2">Add a new project to your portfolio</p>
           </div>
 
-          <form onSubmit={handleSubmit} className="bg-card border border-border rounded-xl p-8 space-y-6">
+          <form onSubmit={handleSubmit} encType="multipart/form-data" className="bg-card border border-border rounded-xl p-8 space-y-6">
             {error && (
               <div className="p-4 bg-destructive/10 border border-destructive/30 rounded-lg text-destructive text-sm">
                 {error}
@@ -116,6 +116,20 @@ export default function NewProject() {
                 className="w-full px-4 py-2 bg-background border border-border rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary"
                 placeholder="React, Next.js, Tailwind (comma separated)"
               />
+            </div>
+
+            <div>
+              <label htmlFor="image" className="block text-sm font-semibold text-foreground mb-2">
+                Project Image
+              </label>
+              <input
+                type="file"
+                id="image"
+                name="image"
+                accept="image/*"
+                className="w-full text-sm text-foreground file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border file:border-border file:bg-primary/10 file:text-primary file:font-semibold file:hover:bg-primary/20"
+              />
+              <p className="text-sm text-muted-foreground mt-2">Optional image to display on the portfolio card and project page.</p>
             </div>
 
             <div className="flex items-center gap-2">
