@@ -46,8 +46,13 @@ export default function LoginForm() {
       <div className="bg-card border border-border rounded-2xl p-8">
         <div className="text-center mb-8">
           <div className="w-12 h-12 bg-gradient-to-br from-primary to-accent rounded-lg flex items-center justify-center mx-auto mb-4">
-            <span className="text-white font-bold text-lg">CX</span>
-          </div>
+     <Image
+                  src="/logo without background.png"
+                  alt="ConnectX Solutions logo"
+                  fill
+                  className="object-contain"
+                  priority
+                />          </div>
           <h1 className="text-2xl font-bold text-foreground">Employee Login</h1>
           <p className="text-muted-foreground text-sm mt-2">Only authorized employees can access the dashboard.</p>
         </div>
