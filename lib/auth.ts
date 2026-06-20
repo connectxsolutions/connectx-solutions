@@ -1,17 +1,12 @@
 import { NextAuthOptions } from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
-import GoogleProvider from 'next-auth/providers/google'
 import { getDatabase } from './mongodb'
-import { z } from 'zod'
+import { compare } from 'bcryptjs'
 
 export const authOptions: NextAuthOptions = {
   providers: [
-    GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID || '',
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET || '',
-    }),
     CredentialsProvider({
-      name: 'Credentials',
+      name: 'Employee Login',
       credentials: {
         email: { label: 'Email', type: 'email' },
         password: { label: 'Password', type: 'password' },
@@ -25,12 +20,12 @@ export const authOptions: NextAuthOptions = {
           const db = await getDatabase()
           const user = await db.collection('users').findOne({ email: credentials.email })
 
-          if (!user) {
+          if (!user || !user.password) {
             return null
           }
 
-          // In production, use bcrypt to compare passwords
-          if (user.password !== credentials.password) {
+          const isValid = await compare(credentials.password, user.password)
+          if (!isValid) {
             return null
           }
 
@@ -48,45 +43,30 @@ export const authOptions: NextAuthOptions = {
     }),
   ],
   callbacks: {
-    async jwt({ token, user, account }) {
+    async jwt(params: any) {
+      const { token, user } = params as any
       if (user) {
-        token.id = user.id
-        token.role = user.role || 'user'
+        const typedToken = token as any
+        const typedUser = user as any
+        typedToken.id = typedUser.id
+        typedToken.role = typedUser.role || 'user'
+        return typedToken
       }
       return token
     },
-    async session({ session, token }) {
-      if (session.user) {
-        session.user.id = token.id as string
-        session.user.role = token.role as string
+    async session(params: any) {
+      const { session, token } = params as any
+      if (session?.user) {
+        const typedSessionUser = session.user as any
+        typedSessionUser.id = token.id as string
+        typedSessionUser.role = token.role as string
+        session.user = typedSessionUser
       }
       return session
     },
-    async signIn({ user, account }) {
-      if (account?.provider === 'google' && user.email) {
-        try {
-          const db = await getDatabase()
-          const existingUser = await db.collection('users').findOne({ email: user.email })
-
-          if (!existingUser) {
-            await db.collection('users').insertOne({
-              email: user.email,
-              name: user.name,
-              image: user.image,
-              provider: 'google',
-              role: 'user',
-              createdAt: new Date(),
-            })
-          }
-        } catch (error) {
-          console.error('SignIn error:', error)
-        }
-      }
-      return true
-    },
   },
   pages: {
-    signIn: '/auth/signin',
+    signIn: '/login',
   },
   session: {
     strategy: 'jwt',

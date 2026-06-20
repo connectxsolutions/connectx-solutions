@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { updateProject } from '@/app/actions'
 import { motion } from 'framer-motion'
+import Image from 'next/image'
 
 export default function EditProject() {
   const router = useRouter()

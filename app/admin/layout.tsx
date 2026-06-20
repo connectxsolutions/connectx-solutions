@@ -12,23 +12,24 @@ export default function AdminLayout({
   const { data: session, status } = useSession()
   const router = useRouter()
 
-  // useEffect(() => {
-  //   if (status === 'unauthenticated') {
-  //     router.push('/login?callbackUrl=/admin')
-  //   }
-  // }, [status, router])
+  useEffect(() => {
+    const role = (session?.user as any)?.role
+    if (status === 'unauthenticated') {
+      router.replace('/login?callbackUrl=/admin')
+    } else if (status === 'authenticated' && role !== 'admin') {
+      router.replace('/')
+    }
+  }, [status, session, router])
 
-  // if (status === 'loading') {
-  //   return (
-  //     <div className="min-h-screen bg-background flex items-center justify-center">
-  //       <p className="text-muted-foreground">Loading...</p>
-  //     </div>
-  //   )
-  // }
+  const userRole = (session?.user as any)?.role
 
-  // if (!session?.user) {
-  //   return null
-  // }
+  if (status === 'loading' || status === 'unauthenticated' || (status === 'authenticated' && userRole !== 'admin')) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <p className="text-muted-foreground">Checking access...</p>
+      </div>
+    )
+  }
 
   return children
 }

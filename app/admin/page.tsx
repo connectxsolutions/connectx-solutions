@@ -4,7 +4,7 @@ import { useSession } from 'next-auth/react'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { Button } from '@/components/ui/button'
-import { Package, MessageSquare, Briefcase, Star } from 'lucide-react'
+import { Package, MessageSquare, Briefcase, Star, Users } from 'lucide-react'
 
 export default function AdminDashboard() {
   const { data: session } = useSession()
@@ -33,6 +33,12 @@ export default function AdminDashboard() {
       title: 'Messages',
       description: 'View contact form submissions',
       href: '/admin/messages'
+    },
+    {
+      icon: Users,
+      title: 'Employees',
+      description: 'Add and manage staff access',
+      href: '/admin/employees'
     }
   ]
 
