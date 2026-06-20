@@ -73,8 +73,8 @@ export default function Contact() {
                 <span className="text-2xl">📧</span>
               </div>
               <h3 className="font-semibold text-foreground mb-2">Email</h3>
-              <a href="mailto:hello@connectx.com" className="text-primary hover:underline">
-                hello@connectx.com
+              <a href="mailto:team.connectx.solutions@gmail.com" className="text-primary hover:underline">
+               team.connectx.solutions@gmail.com
               </a>
             </motion.div>
 
@@ -88,8 +88,8 @@ export default function Contact() {
                 <span className="text-2xl">📞</span>
               </div>
               <h3 className="font-semibold text-foreground mb-2">Phone</h3>
-              <a href="tel:+1234567890" className="text-primary hover:underline">
-                +1 (234) 567-890
+              <a href="tel:+201019971564" className="text-primary hover:underline">
+                +2 01019971564
               </a>
             </motion.div>
 
@@ -103,7 +103,7 @@ export default function Contact() {
                 <span className="text-2xl">📍</span>
               </div>
               <h3 className="font-semibold text-foreground mb-2">Location</h3>
-              <p className="text-muted-foreground">San Francisco, CA</p>
+              <p className="text-muted-foreground">Assiut, Egypt</p>
             </motion.div>
           </div>
 
