@@ -11,6 +11,7 @@ import { LanguageSwitcher } from './language-switcher'
 export function Navigation() {
   const { data: session } = useSession()
   const t = useTranslations('Navigation')
+  const tc = useTranslations('Common')
   const locale = useLocale()
 
   return (
@@ -21,7 +22,7 @@ export function Navigation() {
             <div className="relative w-40 h-12 sm:w-48 sm:h-14">
               <Image
                 src="/logo without background.png"
-                alt="ConnectX Solutions logo"
+                alt={tc('logoAlt')}
                 fill
                 className="object-contain"
                 priority

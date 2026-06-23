@@ -4,12 +4,15 @@ import { Navigation } from '@/components/navigation'
 import { Footer } from '@/components/footer'
 import { motion } from 'framer-motion'
 import Image from 'next/image'
-import Link from 'next/link'
+import { Link } from '@/i18n/navigation'
 import { useParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { Button } from '@/components/ui/button'
+import { useTranslations } from 'next-intl'
 
 export default function ProjectDetail() {
+  const t = useTranslations('Portfolio')
+  const tc = useTranslations('Common')
   const params = useParams()
   const id = params.id as string
   const [project, setProject] = useState<any>(null)
@@ -38,7 +41,7 @@ export default function ProjectDetail() {
         <Navigation />
         <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto text-center">
-            <p className="text-muted-foreground">Loading project details...</p>
+            <p className="text-muted-foreground">{t('loadingDetails')}</p>
           </div>
         </section>
         <Footer />
@@ -52,9 +55,9 @@ export default function ProjectDetail() {
         <Navigation />
         <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-2xl font-bold text-foreground mb-4">Project not found</h1>
+            <h1 className="text-2xl font-bold text-foreground mb-4">{t('notFound')}</h1>
             <Link href="/portfolio">
-              <Button>Back to Portfolio</Button>
+              <Button>{t('backToPortfolio')}</Button>
             </Link>
           </div>
         </section>
@@ -66,7 +69,7 @@ export default function ProjectDetail() {
   return (
     <main className="min-h-screen bg-background">
       <Navigation />
-      
+
       <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto">
           <motion.div
@@ -75,16 +78,14 @@ export default function ProjectDetail() {
             transition={{ duration: 0.8 }}
             className="space-y-8"
           >
-            {/* Header */}
             <div>
               <Link href="/portfolio" className="text-primary hover:underline mb-4 inline-block">
-                ← Back to Portfolio
+                {t('backLink')}
               </Link>
               <h1 className="text-5xl font-bold text-foreground mb-4">{project.title}</h1>
               <p className="text-xl text-muted-foreground">{project.description}</p>
             </div>
 
-            {/* Hero Image */}
             {project.image && (
               <div className="relative h-96 rounded-xl overflow-hidden border border-border">
                 <Image
@@ -96,16 +97,14 @@ export default function ProjectDetail() {
               </div>
             )}
 
-            {/* Content */}
             <div className="bg-card/50 border border-border rounded-xl p-8">
-              <h2 className="text-2xl font-bold text-foreground mb-4">Overview</h2>
+              <h2 className="text-2xl font-bold text-foreground mb-4">{t('overview')}</h2>
               <p className="text-muted-foreground text-lg leading-relaxed">{project.content}</p>
             </div>
 
-            {/* Details Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="bg-card/50 border border-border rounded-xl p-6">
-                <h3 className="font-semibold text-foreground mb-3">Technologies</h3>
+                <h3 className="font-semibold text-foreground mb-3">{t('technologies')}</h3>
                 <div className="flex flex-wrap gap-2">
                   {project.tags?.map((tag: string) => (
                     <span key={tag} className="px-3 py-1 bg-primary/10 text-primary text-sm rounded-full border border-primary/20">
@@ -116,16 +115,15 @@ export default function ProjectDetail() {
               </div>
 
               <div className="bg-card/50 border border-border rounded-xl p-6">
-                <h3 className="font-semibold text-foreground mb-3">Client</h3>
-                <p className="text-muted-foreground">{project.client || 'Confidential'}</p>
+                <h3 className="font-semibold text-foreground mb-3">{t('client')}</h3>
+                <p className="text-muted-foreground">{project.client || tc('confidential')}</p>
               </div>
             </div>
 
-            {/* CTA */}
             <div className="bg-gradient-to-r from-primary/10 to-accent/10 border border-primary/20 rounded-xl p-8 text-center">
-              <h3 className="text-2xl font-bold text-foreground mb-4">Ready to start your project?</h3>
+              <h3 className="text-2xl font-bold text-foreground mb-4">{t('ctaTitle')}</h3>
               <Link href="/contact">
-                <Button size="lg">Get in Touch</Button>
+                <Button size="lg">{t('ctaButton')}</Button>
               </Link>
             </div>
           </motion.div>

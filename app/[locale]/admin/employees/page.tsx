@@ -1,10 +1,10 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { useRouter } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import { motion } from 'framer-motion'
-import Link from 'next/link'
+import { Link } from '@/i18n/navigation'
+import { useTranslations } from 'next-intl'
 
 interface User {
   _id: string
@@ -14,7 +14,8 @@ interface User {
 }
 
 export default function EmployeesPage() {
-  const router = useRouter()
+  const t = useTranslations('Admin')
+  const tc = useTranslations('Common')
   const [users, setUsers] = useState<User[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
@@ -72,14 +73,14 @@ export default function EmployeesPage() {
       })
 
       if (!res.ok) {
-        const body = await res.json()
-        throw new Error(body.error || 'Failed to save employee')
+        const responseBody = await res.json()
+        throw new Error(responseBody.error || t('failedSaveEmployee'))
       }
 
       resetForm()
       fetchUsers()
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to save employee')
+      setError(err instanceof Error ? err.message : t('failedSaveEmployee'))
     } finally {
       setSubmitting(false)
     }
@@ -99,7 +100,7 @@ export default function EmployeesPage() {
   }
 
   const handleDelete = async (userId: string, userEmail: string) => {
-    const confirmed = window.confirm(`Delete ${userEmail} from employees?`)
+    const confirmed = window.confirm(tc('confirmDeleteEmployee', { email: userEmail }))
     if (!confirmed) return
 
     setSubmitting(true)
@@ -111,8 +112,8 @@ export default function EmployeesPage() {
       })
 
       if (!res.ok) {
-        const body = await res.json()
-        throw new Error(body.error || 'Failed to delete employee')
+        const responseBody = await res.json()
+        throw new Error(responseBody.error || t('failedDeleteEmployee'))
       }
 
       if (editingUserId === userId) {
@@ -121,7 +122,7 @@ export default function EmployeesPage() {
 
       fetchUsers()
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to delete employee')
+      setError(err instanceof Error ? err.message : t('failedDeleteEmployee'))
     } finally {
       setSubmitting(false)
     }
@@ -138,24 +139,24 @@ export default function EmployeesPage() {
         >
           <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
             <div>
-              <h1 className="text-4xl font-bold text-foreground mb-2">Employee Management</h1>
-              <p className="text-muted-foreground">Only admin users can add, edit, or remove employees.</p>
+              <h1 className="text-4xl font-bold text-foreground mb-2">{t('employeeManagement')}</h1>
+              <p className="text-muted-foreground">{t('employeeManagementDesc')}</p>
             </div>
             <Link href="/admin" className="text-primary hover:underline">
-              Back to dashboard
+              {t('backToDashboardLink')}
             </Link>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             <div className="lg:col-span-2 space-y-6">
               <div className="bg-card border border-border rounded-xl p-8">
-                <h2 className="text-2xl font-semibold text-foreground mb-4">Team members</h2>
+                <h2 className="text-2xl font-semibold text-foreground mb-4">{t('teamMembers')}</h2>
                 {loading ? (
-                  <p className="text-muted-foreground">Loading employees...</p>
+                  <p className="text-muted-foreground">{t('loadingEmployees')}</p>
                 ) : (
                   <div className="space-y-4">
                     {users.length === 0 ? (
-                      <p className="text-muted-foreground">No employees available yet.</p>
+                      <p className="text-muted-foreground">{t('noEmployees')}</p>
                     ) : (
                       users.map((user) => (
                         <div key={user._id} className="rounded-xl border border-border p-4 bg-background/80">
@@ -167,10 +168,10 @@ export default function EmployeesPage() {
                             <div className="flex flex-wrap items-center gap-2">
                               <span className="rounded-full bg-primary/10 text-primary px-3 py-1 text-sm">{user.role}</span>
                               <Button variant="secondary" size="sm" type="button" onClick={() => startEdit(user)}>
-                                Edit
+                                {tc('edit')}
                               </Button>
                               <Button variant="destructive" size="sm" type="button" onClick={() => handleDelete(user._id, user.email)}>
-                                Delete
+                                {tc('delete')}
                               </Button>
                             </div>
                           </div>
@@ -184,25 +185,25 @@ export default function EmployeesPage() {
 
             <div className="bg-card border border-border rounded-xl p-8">
               <h2 className="text-2xl font-semibold text-foreground mb-4">
-                {editingUserId ? 'Edit employee' : 'Add new employee'}
+                {editingUserId ? t('editEmployee') : t('addEmployee')}
               </h2>
 
               <form onSubmit={handleSubmit} className="space-y-4">
                 {error && <div className="rounded-lg bg-destructive/10 border border-destructive/30 p-3 text-sm text-destructive">{error}</div>}
 
                 <div>
-                  <label htmlFor="name" className="block text-sm font-semibold text-foreground mb-2">Name</label>
+                  <label htmlFor="name" className="block text-sm font-semibold text-foreground mb-2">{tc('name')}</label>
                   <input
                     id="name"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     className="w-full px-4 py-3 bg-background border border-border rounded-lg text-foreground focus:outline-none focus:ring-2 focus:ring-primary"
-                    placeholder="Employee name"
+                    placeholder={t('employeeNamePlaceholder')}
                   />
                 </div>
 
                 <div>
-                  <label htmlFor="email" className="block text-sm font-semibold text-foreground mb-2">Email</label>
+                  <label htmlFor="email" className="block text-sm font-semibold text-foreground mb-2">{tc('email')}</label>
                   <input
                     id="email"
                     type="email"
@@ -210,45 +211,45 @@ export default function EmployeesPage() {
                     onChange={(e) => setEmail(e.target.value)}
                     required
                     className="w-full px-4 py-3 bg-background border border-border rounded-lg text-foreground focus:outline-none focus:ring-2 focus:ring-primary"
-                    placeholder="employee@company.com"
+                    placeholder={t('employeeEmailPlaceholder')}
                   />
                 </div>
 
                 <div>
-                  <label htmlFor="password" className="block text-sm font-semibold text-foreground mb-2">Password</label>
+                  <label htmlFor="password" className="block text-sm font-semibold text-foreground mb-2">{tc('password')}</label>
                   <input
                     id="password"
                     type="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     className="w-full px-4 py-3 bg-background border border-border rounded-lg text-foreground focus:outline-none focus:ring-2 focus:ring-primary"
-                    placeholder={editingUserId ? 'Leave blank to keep existing password' : 'Create a password'}
+                    placeholder={editingUserId ? t('passwordKeepPlaceholder') : t('passwordCreatePlaceholder')}
                   />
                   {editingUserId && (
-                    <p className="text-xs text-muted-foreground mt-2">Leave password empty to keep the current password.</p>
+                    <p className="text-xs text-muted-foreground mt-2">{t('passwordKeepHelp')}</p>
                   )}
                 </div>
 
                 <div>
-                  <label htmlFor="role" className="block text-sm font-semibold text-foreground mb-2">Role</label>
+                  <label htmlFor="role" className="block text-sm font-semibold text-foreground mb-2">{t('role')}</label>
                   <select
                     id="role"
                     value={role}
                     onChange={(e) => setRole(e.target.value as 'admin' | 'user')}
                     className="w-full px-4 py-3 bg-background border border-border rounded-lg text-foreground focus:outline-none focus:ring-2 focus:ring-primary"
                   >
-                    <option value="user">Employee</option>
-                    <option value="admin">Admin</option>
+                    <option value="user">{t('employeeRole')}</option>
+                    <option value="admin">{t('adminRole')}</option>
                   </select>
                 </div>
 
                 <div className="flex flex-col gap-3">
                   <Button type="submit" disabled={submitting} size="lg" className="w-full">
-                    {submitting ? (editingUserId ? 'Saving...' : 'Adding...') : (editingUserId ? 'Save Changes' : 'Add Employee')}
+                    {submitting ? (editingUserId ? tc('saving') : tc('adding')) : (editingUserId ? tc('saveChanges') : t('addEmployeeBtn'))}
                   </Button>
                   {editingUserId && (
                     <Button type="button" variant="outline" size="lg" className="w-full" onClick={handleCancelEdit}>
-                      Cancel edit
+                      {t('cancelEdit')}
                     </Button>
                   )}
                 </div>

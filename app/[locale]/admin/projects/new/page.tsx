@@ -1,13 +1,16 @@
 'use client'
 
 import { useState } from 'react'
-import { useRouter } from 'next/navigation'
-import Link from 'next/link'
+import { useRouter } from '@/i18n/navigation'
+import { Link } from '@/i18n/navigation'
 import { Button } from '@/components/ui/button'
 import { createProject } from '@/app/actions'
 import { motion } from 'framer-motion'
+import { useTranslations } from 'next-intl'
 
 export default function NewProject() {
+  const t = useTranslations('Admin')
+  const tc = useTranslations('Common')
   const router = useRouter()
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
@@ -22,7 +25,7 @@ export default function NewProject() {
       await createProject(formData)
       router.push('/admin/projects')
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to create project')
+      setError(err instanceof Error ? err.message : t('failedCreateProject'))
     } finally {
       setLoading(false)
     }
@@ -38,8 +41,8 @@ export default function NewProject() {
           className="space-y-8"
         >
           <div>
-            <h1 className="text-4xl font-bold text-foreground">Create Project</h1>
-            <p className="text-muted-foreground mt-2">Add a new project to your portfolio</p>
+            <h1 className="text-4xl font-bold text-foreground">{t('createProject')}</h1>
+            <p className="text-muted-foreground mt-2">{t('createProjectDesc')}</p>
           </div>
 
           <form onSubmit={handleSubmit} encType="multipart/form-data" className="bg-card border border-border rounded-xl p-8 space-y-6">
@@ -52,7 +55,7 @@ export default function NewProject() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <label htmlFor="title" className="block text-sm font-semibold text-foreground mb-2">
-                  Title *
+                  {tc('title')} *
                 </label>
                 <input
                   type="text"
@@ -60,27 +63,27 @@ export default function NewProject() {
                   name="title"
                   required
                   className="w-full px-4 py-2 bg-background border border-border rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary"
-                  placeholder="Project title"
+                  placeholder={t('titlePlaceholder')}
                 />
               </div>
 
               <div>
                 <label htmlFor="client" className="block text-sm font-semibold text-foreground mb-2">
-                  Client Name
+                  {t('clientName')}
                 </label>
                 <input
                   type="text"
                   id="client"
                   name="client"
                   className="w-full px-4 py-2 bg-background border border-border rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary"
-                  placeholder="Client name"
+                  placeholder={t('clientPlaceholder')}
                 />
               </div>
             </div>
 
             <div>
               <label htmlFor="description" className="block text-sm font-semibold text-foreground mb-2">
-                Description *
+                {tc('description')} *
               </label>
               <textarea
                 id="description"
@@ -88,39 +91,39 @@ export default function NewProject() {
                 required
                 rows={3}
                 className="w-full px-4 py-2 bg-background border border-border rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary resize-none"
-                placeholder="Brief description of the project"
+                placeholder={t('descriptionPlaceholder')}
               />
             </div>
 
             <div>
               <label htmlFor="content" className="block text-sm font-semibold text-foreground mb-2">
-                Content
+                {t('content')}
               </label>
               <textarea
                 id="content"
                 name="content"
                 rows={6}
                 className="w-full px-4 py-2 bg-background border border-border rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary resize-none"
-                placeholder="Detailed project content"
+                placeholder={t('contentPlaceholder')}
               />
             </div>
 
             <div>
               <label htmlFor="tags" className="block text-sm font-semibold text-foreground mb-2">
-                Tags
+                {t('tags')}
               </label>
               <input
                 type="text"
                 id="tags"
                 name="tags"
                 className="w-full px-4 py-2 bg-background border border-border rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary"
-                placeholder="React, Next.js, Tailwind (comma separated)"
+                placeholder={t('tagsPlaceholder')}
               />
             </div>
 
             <div>
               <label htmlFor="image" className="block text-sm font-semibold text-foreground mb-2">
-                Project Image
+                {t('projectImage')}
               </label>
               <input
                 type="file"
@@ -129,7 +132,7 @@ export default function NewProject() {
                 accept="image/*"
                 className="w-full text-sm text-foreground file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border file:border-border file:bg-primary/10 file:text-primary file:font-semibold file:hover:bg-primary/20"
               />
-              <p className="text-sm text-muted-foreground mt-2">Optional image to display on the portfolio card and project page.</p>
+              <p className="text-sm text-muted-foreground mt-2">{t('imageHelp')}</p>
             </div>
 
             <div className="flex items-center gap-2">
@@ -140,16 +143,16 @@ export default function NewProject() {
                 className="w-4 h-4 rounded border-border accent-primary"
               />
               <label htmlFor="published" className="text-sm font-medium text-foreground">
-                Publish this project
+                {t('publishProject')}
               </label>
             </div>
 
             <div className="flex gap-3 pt-6 border-t border-border">
               <Button type="submit" disabled={loading}>
-                {loading ? 'Creating...' : 'Create Project'}
+                {loading ? tc('creating') : t('createProject')}
               </Button>
               <Link href="/admin/projects">
-                <Button variant="outline">Cancel</Button>
+                <Button variant="outline">{tc('cancel')}</Button>
               </Link>
             </div>
           </form>

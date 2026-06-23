@@ -1,8 +1,9 @@
 'use client'
 
 import { useSession } from 'next-auth/react'
-import { useRouter } from 'next/navigation'
+import { useRouter } from '@/i18n/navigation'
 import { useEffect } from 'react'
+import { useTranslations } from 'next-intl'
 
 export default function AdminLayout({
   children,
@@ -11,6 +12,7 @@ export default function AdminLayout({
 }) {
   const { data: session, status } = useSession()
   const router = useRouter()
+  const t = useTranslations('Admin')
 
   useEffect(() => {
     const role = (session?.user as any)?.role
@@ -26,7 +28,7 @@ export default function AdminLayout({
   if (status === 'loading' || status === 'unauthenticated' || (status === 'authenticated' && userRole !== 'admin')) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
-        <p className="text-muted-foreground">Checking access...</p>
+        <p className="text-muted-foreground">{t('checkingAccess')}</p>
       </div>
     )
   }

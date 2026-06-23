@@ -3,10 +3,13 @@
 import { motion } from 'framer-motion'
 import { Button } from '@/components/ui/button'
 import { useState, useEffect } from 'react'
-import Link from 'next/link'
+import { Link } from '@/i18n/navigation'
 import { Trash2, Mail } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 
 export default function MessagesAdmin() {
+  const t = useTranslations('Admin')
+  const tc = useTranslations('Common')
   const [messages, setMessages] = useState<any[]>([])
   const [loading, setLoading] = useState(true)
   const [selectedMessage, setSelectedMessage] = useState<any>(null)
@@ -31,7 +34,7 @@ export default function MessagesAdmin() {
   }
 
   const handleDelete = async (id: string) => {
-    if (!confirm('Are you sure you want to delete this message?')) return
+    if (!confirm(tc('confirmDeleteMessage'))) return
 
     try {
       const res = await fetch(`/api/admin/messages/${id}`, {
@@ -55,23 +58,21 @@ export default function MessagesAdmin() {
           transition={{ duration: 0.8 }}
           className="space-y-8"
         >
-          {/* Header */}
           <div>
-            <h1 className="text-4xl font-bold text-foreground">Contact Messages</h1>
-            <p className="text-muted-foreground mt-2">View and manage incoming contact form submissions</p>
+            <h1 className="text-4xl font-bold text-foreground">{t('contactMessages')}</h1>
+            <p className="text-muted-foreground mt-2">{t('contactMessagesDesc')}</p>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            {/* Messages List */}
             <div className="lg:col-span-1">
               <div className="bg-card border border-border rounded-xl overflow-hidden">
                 {loading ? (
                   <div className="p-4 text-center text-muted-foreground text-sm">
-                    Loading messages...
+                    {t('loadingMessages')}
                   </div>
                 ) : messages.length === 0 ? (
                   <div className="p-4 text-center text-muted-foreground text-sm">
-                    No messages yet
+                    {t('noMessages')}
                   </div>
                 ) : (
                   <div className="max-h-96 overflow-y-auto">
@@ -93,17 +94,16 @@ export default function MessagesAdmin() {
               </div>
             </div>
 
-            {/* Message Detail */}
             <div className="lg:col-span-2">
               {selectedMessage ? (
                 <div className="bg-card border border-border rounded-xl p-6 space-y-6">
                   <div className="space-y-4">
                     <div>
-                      <label className="text-sm font-semibold text-muted-foreground">From</label>
+                      <label className="text-sm font-semibold text-muted-foreground">{t('from')}</label>
                       <p className="text-foreground">{selectedMessage.name}</p>
                     </div>
                     <div>
-                      <label className="text-sm font-semibold text-muted-foreground">Email</label>
+                      <label className="text-sm font-semibold text-muted-foreground">{tc('email')}</label>
                       <a
                         href={`mailto:${selectedMessage.email}`}
                         className="text-primary hover:underline flex items-center gap-1"
@@ -113,11 +113,11 @@ export default function MessagesAdmin() {
                       </a>
                     </div>
                     <div>
-                      <label className="text-sm font-semibold text-muted-foreground">Subject</label>
+                      <label className="text-sm font-semibold text-muted-foreground">{tc('subject')}</label>
                       <p className="text-foreground">{selectedMessage.subject}</p>
                     </div>
                     <div>
-                      <label className="text-sm font-semibold text-muted-foreground">Received</label>
+                      <label className="text-sm font-semibold text-muted-foreground">{t('received')}</label>
                       <p className="text-foreground">
                         {new Date(selectedMessage.createdAt).toLocaleString()}
                       </p>
@@ -125,7 +125,7 @@ export default function MessagesAdmin() {
                   </div>
 
                   <div className="border-t border-border pt-6">
-                    <label className="text-sm font-semibold text-muted-foreground mb-2 block">Message</label>
+                    <label className="text-sm font-semibold text-muted-foreground mb-2 block">{tc('message')}</label>
                     <p className="text-foreground whitespace-pre-wrap leading-relaxed">{selectedMessage.message}</p>
                   </div>
 
@@ -136,21 +136,20 @@ export default function MessagesAdmin() {
                       onClick={() => handleDelete(selectedMessage._id)}
                     >
                       <Trash2 className="w-4 h-4 mr-2" />
-                      Delete
+                      {tc('delete')}
                     </Button>
                   </div>
                 </div>
               ) : (
                 <div className="bg-card border border-border rounded-xl p-8 text-center text-muted-foreground">
-                  Select a message to view details
+                  {t('selectMessage')}
                 </div>
               )}
             </div>
           </div>
 
-          {/* Back Button */}
           <Link href="/admin">
-            <Button variant="outline">← Back to Dashboard</Button>
+            <Button variant="outline">{tc('backToDashboard')}</Button>
           </Link>
         </motion.div>
       </div>

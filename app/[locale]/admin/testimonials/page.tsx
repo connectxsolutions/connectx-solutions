@@ -3,10 +3,13 @@
 import { motion } from 'framer-motion'
 import { Button } from '@/components/ui/button'
 import { useState, useEffect } from 'react'
-import Link from 'next/link'
+import { Link } from '@/i18n/navigation'
 import { Trash2, Edit, Plus } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 
 export default function TestimonialsAdmin() {
+  const t = useTranslations('Admin')
+  const tc = useTranslations('Common')
   const [testimonials, setTestimonials] = useState<any[]>([])
   const [loading, setLoading] = useState(true)
 
@@ -30,14 +33,14 @@ export default function TestimonialsAdmin() {
   }
 
   const handleDelete = async (id: string) => {
-    if (!confirm('Are you sure you want to delete this testimonial?')) return
+    if (!confirm(tc('confirmDeleteTestimonial'))) return
 
     try {
       const res = await fetch(`/api/admin/testimonials/${id}`, {
         method: 'DELETE'
       })
       if (res.ok) {
-        setTestimonials(testimonials.filter(t => t._id !== id))
+        setTestimonials(testimonials.filter(item => item._id !== id))
       }
     } catch (error) {
       console.error('Failed to delete testimonial:', error)
@@ -53,29 +56,27 @@ export default function TestimonialsAdmin() {
           transition={{ duration: 0.8 }}
           className="space-y-8"
         >
-          {/* Header */}
           <div className="flex justify-between items-center">
             <div>
-              <h1 className="text-4xl font-bold text-foreground">Testimonials</h1>
-              <p className="text-muted-foreground mt-2">Manage client testimonials</p>
+              <h1 className="text-4xl font-bold text-foreground">{t('testimonialsTitle')}</h1>
+              <p className="text-muted-foreground mt-2">{t('manageTestimonials')}</p>
             </div>
             <Link href="/admin/testimonials/new">
               <Button className="gap-2">
                 <Plus className="w-4 h-4" />
-                New Testimonial
+                {t('newTestimonial')}
               </Button>
             </Link>
           </div>
 
-          {/* Testimonials Grid */}
           <div>
             {loading ? (
               <div className="text-center text-muted-foreground">
-                Loading testimonials...
+                {t('loadingTestimonials')}
               </div>
             ) : testimonials.length === 0 ? (
               <div className="text-center text-muted-foreground">
-                No testimonials yet. Add your first testimonial to get started.
+                {t('noTestimonials')}
               </div>
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -111,7 +112,7 @@ export default function TestimonialsAdmin() {
                       <Link href={`/admin/testimonials/${testimonial._id}`} className="flex-1">
                         <Button variant="outline" size="sm" className="w-full gap-1">
                           <Edit className="w-4 h-4" />
-                          Edit
+                          {tc('edit')}
                         </Button>
                       </Link>
                       <Button
@@ -129,9 +130,8 @@ export default function TestimonialsAdmin() {
             )}
           </div>
 
-          {/* Back Button */}
           <Link href="/admin">
-            <Button variant="outline">← Back to Dashboard</Button>
+            <Button variant="outline">{tc('backToDashboard')}</Button>
           </Link>
         </motion.div>
       </div>

@@ -3,11 +3,13 @@
 import { Navigation } from '@/components/navigation'
 import { Footer } from '@/components/footer'
 import { motion } from 'framer-motion'
-import Link from 'next/link'
+import { Link } from '@/i18n/navigation'
 import Image from 'next/image'
 import { useState, useEffect } from 'react'
+import { useTranslations } from 'next-intl'
 
 export default function Portfolio() {
+  const t = useTranslations('Portfolio')
   const [projects, setProjects] = useState<any[]>([])
   const [loading, setLoading] = useState(true)
 
@@ -31,7 +33,7 @@ export default function Portfolio() {
   return (
     <main className="min-h-screen bg-background">
       <Navigation />
-      
+
       <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <motion.div
@@ -40,19 +42,19 @@ export default function Portfolio() {
             transition={{ duration: 0.8 }}
             className="text-center mb-16"
           >
-            <h1 className="text-5xl md:text-6xl font-bold text-foreground mb-4">Our Portfolio</h1>
+            <h1 className="text-5xl md:text-6xl font-bold text-foreground mb-4">{t('title')}</h1>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Explore our latest projects and see how we&apos;ve helped businesses succeed
+              {t('subtitle')}
             </p>
           </motion.div>
 
           {loading ? (
             <div className="text-center py-12">
-              <p className="text-muted-foreground">Loading projects...</p>
+              <p className="text-muted-foreground">{t('loadingProjects')}</p>
             </div>
           ) : projects.length === 0 ? (
             <div className="text-center py-12">
-              <p className="text-muted-foreground">No projects available yet. Check back soon!</p>
+              <p className="text-muted-foreground">{t('noProjects')}</p>
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">

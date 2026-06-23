@@ -1,13 +1,16 @@
 'use client'
 
 import { useState } from 'react'
-import { useRouter } from 'next/navigation'
-import Link from 'next/link'
+import { useRouter } from '@/i18n/navigation'
+import { Link } from '@/i18n/navigation'
 import { Button } from '@/components/ui/button'
 import { createService } from '@/app/actions'
 import { motion } from 'framer-motion'
+import { useTranslations } from 'next-intl'
 
 export default function NewService() {
+  const t = useTranslations('Admin')
+  const tc = useTranslations('Common')
   const router = useRouter()
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
@@ -22,7 +25,7 @@ export default function NewService() {
       await createService(formData)
       router.push('/admin/services')
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to create service')
+      setError(err instanceof Error ? err.message : t('failedCreateService'))
     } finally {
       setLoading(false)
     }
@@ -38,8 +41,8 @@ export default function NewService() {
           className="space-y-8"
         >
           <div>
-            <h1 className="text-4xl font-bold text-foreground">Create Service</h1>
-            <p className="text-muted-foreground mt-2">Add a new service to your offerings</p>
+            <h1 className="text-4xl font-bold text-foreground">{t('createService')}</h1>
+            <p className="text-muted-foreground mt-2">{t('createServiceDesc')}</p>
           </div>
 
           <form onSubmit={handleSubmit} className="bg-card border border-border rounded-xl p-8 space-y-6">
@@ -51,7 +54,7 @@ export default function NewService() {
 
             <div>
               <label htmlFor="title" className="block text-sm font-semibold text-foreground mb-2">
-                Service Title *
+                {t('serviceTitle')}
               </label>
               <input
                 type="text"
@@ -59,13 +62,13 @@ export default function NewService() {
                 name="title"
                 required
                 className="w-full px-4 py-2 bg-background border border-border rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary"
-                placeholder="Web Development"
+                placeholder={t('serviceTitlePlaceholder')}
               />
             </div>
 
             <div>
               <label htmlFor="description" className="block text-sm font-semibold text-foreground mb-2">
-                Description *
+                {tc('description')} *
               </label>
               <textarea
                 id="description"
@@ -73,13 +76,13 @@ export default function NewService() {
                 required
                 rows={4}
                 className="w-full px-4 py-2 bg-background border border-border rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary resize-none"
-                placeholder="Describe this service"
+                placeholder={t('serviceDescPlaceholder')}
               />
             </div>
 
             <div>
               <label htmlFor="icon" className="block text-sm font-semibold text-foreground mb-2">
-                Icon Emoji
+                {t('iconEmoji')}
               </label>
               <input
                 type="text"
@@ -93,10 +96,10 @@ export default function NewService() {
 
             <div className="flex gap-3 pt-6 border-t border-border">
               <Button type="submit" disabled={loading}>
-                {loading ? 'Creating...' : 'Create Service'}
+                {loading ? tc('creating') : t('createService')}
               </Button>
               <Link href="/admin/services">
-                <Button variant="outline">Cancel</Button>
+                <Button variant="outline">{tc('cancel')}</Button>
               </Link>
             </div>
           </form>

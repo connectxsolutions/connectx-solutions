@@ -3,10 +3,13 @@
 import { motion } from 'framer-motion'
 import { Button } from '@/components/ui/button'
 import { useState, useEffect } from 'react'
-import Link from 'next/link'
+import { Link } from '@/i18n/navigation'
 import { Trash2, Edit, Plus } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 
 export default function ProjectsAdmin() {
+  const t = useTranslations('Admin')
+  const tc = useTranslations('Common')
   const [projects, setProjects] = useState<any[]>([])
   const [loading, setLoading] = useState(true)
 
@@ -30,7 +33,7 @@ export default function ProjectsAdmin() {
   }
 
   const handleDelete = async (id: string) => {
-    if (!confirm('Are you sure you want to delete this project?')) return
+    if (!confirm(tc('confirmDeleteProject'))) return
 
     try {
       const res = await fetch(`/api/admin/projects/${id}`, {
@@ -53,39 +56,37 @@ export default function ProjectsAdmin() {
           transition={{ duration: 0.8 }}
           className="space-y-8"
         >
-          {/* Header */}
           <div className="flex justify-between items-center">
             <div>
-              <h1 className="text-4xl font-bold text-foreground">Projects</h1>
-              <p className="text-muted-foreground mt-2">Manage your portfolio projects</p>
+              <h1 className="text-4xl font-bold text-foreground">{t('projectsTitle')}</h1>
+              <p className="text-muted-foreground mt-2">{t('manageProjects')}</p>
             </div>
             <Link href="/admin/projects/new">
               <Button className="gap-2">
                 <Plus className="w-4 h-4" />
-                New Project
+                {t('newProject')}
               </Button>
             </Link>
           </div>
 
-          {/* Projects Table */}
           <div className="bg-card border border-border rounded-xl overflow-hidden">
             {loading ? (
               <div className="p-8 text-center text-muted-foreground">
-                Loading projects...
+                {t('loadingProjects')}
               </div>
             ) : projects.length === 0 ? (
               <div className="p-8 text-center text-muted-foreground">
-                No projects yet. Create your first project to get started.
+                {t('noProjects')}
               </div>
             ) : (
               <div className="overflow-x-auto">
                 <table className="w-full">
                   <thead>
                     <tr className="border-b border-border bg-card/50">
-                      <th className="px-6 py-4 text-left text-sm font-semibold text-foreground">Title</th>
-                      <th className="px-6 py-4 text-left text-sm font-semibold text-foreground">Status</th>
-                      <th className="px-6 py-4 text-left text-sm font-semibold text-foreground">Created</th>
-                      <th className="px-6 py-4 text-right text-sm font-semibold text-foreground">Actions</th>
+                      <th className="px-6 py-4 text-left text-sm font-semibold text-foreground">{tc('title')}</th>
+                      <th className="px-6 py-4 text-left text-sm font-semibold text-foreground">{t('status')}</th>
+                      <th className="px-6 py-4 text-left text-sm font-semibold text-foreground">{t('created')}</th>
+                      <th className="px-6 py-4 text-right text-sm font-semibold text-foreground">{tc('actions')}</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -103,7 +104,7 @@ export default function ProjectsAdmin() {
                               ? 'bg-primary/10 text-primary'
                               : 'bg-muted text-muted-foreground'
                           }`}>
-                            {project.published ? 'Published' : 'Draft'}
+                            {project.published ? tc('published') : tc('draft')}
                           </span>
                         </td>
                         <td className="px-6 py-4 text-muted-foreground text-sm">
@@ -113,7 +114,7 @@ export default function ProjectsAdmin() {
                           <Link href={`/admin/projects/${project._id}`}>
                             <Button variant="outline" size="sm" className="gap-1">
                               <Edit className="w-4 h-4" />
-                              Edit
+                              {tc('edit')}
                             </Button>
                           </Link>
                           <Button
@@ -123,7 +124,7 @@ export default function ProjectsAdmin() {
                             onClick={() => handleDelete(project._id)}
                           >
                             <Trash2 className="w-4 h-4" />
-                            Delete
+                            {tc('delete')}
                           </Button>
                         </td>
                       </tr>
@@ -134,9 +135,8 @@ export default function ProjectsAdmin() {
             )}
           </div>
 
-          {/* Back Button */}
           <Link href="/admin">
-            <Button variant="outline">← Back to Dashboard</Button>
+            <Button variant="outline">{tc('backToDashboard')}</Button>
           </Link>
         </motion.div>
       </div>

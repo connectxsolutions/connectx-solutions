@@ -3,10 +3,13 @@
 import { motion } from 'framer-motion'
 import { Button } from '@/components/ui/button'
 import { useState, useEffect } from 'react'
-import Link from 'next/link'
+import { Link } from '@/i18n/navigation'
 import { Trash2, Edit, Plus } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 
 export default function ServicesAdmin() {
+  const t = useTranslations('Admin')
+  const tc = useTranslations('Common')
   const [services, setServices] = useState<any[]>([])
   const [loading, setLoading] = useState(true)
 
@@ -30,7 +33,7 @@ export default function ServicesAdmin() {
   }
 
   const handleDelete = async (id: string) => {
-    if (!confirm('Are you sure you want to delete this service?')) return
+    if (!confirm(tc('confirmDeleteService'))) return
 
     try {
       const res = await fetch(`/api/admin/services/${id}`, {
@@ -53,38 +56,36 @@ export default function ServicesAdmin() {
           transition={{ duration: 0.8 }}
           className="space-y-8"
         >
-          {/* Header */}
           <div className="flex justify-between items-center">
             <div>
-              <h1 className="text-4xl font-bold text-foreground">Services</h1>
-              <p className="text-muted-foreground mt-2">Manage your service offerings</p>
+              <h1 className="text-4xl font-bold text-foreground">{t('servicesTitle')}</h1>
+              <p className="text-muted-foreground mt-2">{t('manageServices')}</p>
             </div>
             <Link href="/admin/services/new">
               <Button className="gap-2">
                 <Plus className="w-4 h-4" />
-                New Service
+                {t('newService')}
               </Button>
             </Link>
           </div>
 
-          {/* Services Table */}
           <div className="bg-card border border-border rounded-xl overflow-hidden">
             {loading ? (
               <div className="p-8 text-center text-muted-foreground">
-                Loading services...
+                {t('loadingServices')}
               </div>
             ) : services.length === 0 ? (
               <div className="p-8 text-center text-muted-foreground">
-                No services yet. Create your first service to get started.
+                {t('noServices')}
               </div>
             ) : (
               <div className="overflow-x-auto">
                 <table className="w-full">
                   <thead>
                     <tr className="border-b border-border bg-card/50">
-                      <th className="px-6 py-4 text-left text-sm font-semibold text-foreground">Title</th>
-                      <th className="px-6 py-4 text-left text-sm font-semibold text-foreground">Description</th>
-                      <th className="px-6 py-4 text-right text-sm font-semibold text-foreground">Actions</th>
+                      <th className="px-6 py-4 text-left text-sm font-semibold text-foreground">{tc('title')}</th>
+                      <th className="px-6 py-4 text-left text-sm font-semibold text-foreground">{tc('description')}</th>
+                      <th className="px-6 py-4 text-right text-sm font-semibold text-foreground">{tc('actions')}</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -101,7 +102,7 @@ export default function ServicesAdmin() {
                           <Link href={`/admin/services/${service._id}`}>
                             <Button variant="outline" size="sm" className="gap-1">
                               <Edit className="w-4 h-4" />
-                              Edit
+                              {tc('edit')}
                             </Button>
                           </Link>
                           <Button
@@ -111,7 +112,7 @@ export default function ServicesAdmin() {
                             onClick={() => handleDelete(service._id)}
                           >
                             <Trash2 className="w-4 h-4" />
-                            Delete
+                            {tc('delete')}
                           </Button>
                         </td>
                       </tr>
@@ -122,9 +123,8 @@ export default function ServicesAdmin() {
             )}
           </div>
 
-          {/* Back Button */}
           <Link href="/admin">
-            <Button variant="outline">← Back to Dashboard</Button>
+            <Button variant="outline">{tc('backToDashboard')}</Button>
           </Link>
         </motion.div>
       </div>

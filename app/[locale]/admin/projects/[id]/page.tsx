@@ -1,14 +1,18 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { useRouter, useParams } from 'next/navigation'
-import Link from 'next/link'
+import { useRouter } from '@/i18n/navigation'
+import { Link } from '@/i18n/navigation'
+import { useParams } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import { updateProject } from '@/app/actions'
 import { motion } from 'framer-motion'
 import Image from 'next/image'
+import { useTranslations } from 'next-intl'
 
 export default function EditProject() {
+  const t = useTranslations('Admin')
+  const tc = useTranslations('Common')
   const router = useRouter()
   const params = useParams()
   const id = params.id as string
@@ -44,7 +48,7 @@ export default function EditProject() {
       await updateProject(id, formData)
       router.push('/admin/projects')
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to update project')
+      setError(err instanceof Error ? err.message : t('failedUpdateProject'))
     } finally {
       setLoading(false)
     }
@@ -53,7 +57,7 @@ export default function EditProject() {
   if (fetching) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
-        <p className="text-muted-foreground">Loading project...</p>
+        <p className="text-muted-foreground">{t('loadingProject')}</p>
       </div>
     )
   }
@@ -62,9 +66,9 @@ export default function EditProject() {
     return (
       <div className="min-h-screen bg-background">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
-          <p className="text-muted-foreground mb-4">Project not found</p>
+          <p className="text-muted-foreground mb-4">{t('projectNotFound')}</p>
           <Link href="/admin/projects">
-            <Button variant="outline">Back to Projects</Button>
+            <Button variant="outline">{t('backToProjects')}</Button>
           </Link>
         </div>
       </div>
@@ -81,8 +85,8 @@ export default function EditProject() {
           className="space-y-8"
         >
           <div>
-            <h1 className="text-4xl font-bold text-foreground">Edit Project</h1>
-            <p className="text-muted-foreground mt-2">Update project details</p>
+            <h1 className="text-4xl font-bold text-foreground">{t('editProject')}</h1>
+            <p className="text-muted-foreground mt-2">{t('editProjectDesc')}</p>
           </div>
 
           <form onSubmit={handleSubmit} encType="multipart/form-data" className="bg-card border border-border rounded-xl p-8 space-y-6">
@@ -95,7 +99,7 @@ export default function EditProject() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <label htmlFor="title" className="block text-sm font-semibold text-foreground mb-2">
-                  Title *
+                  {tc('title')} *
                 </label>
                 <input
                   type="text"
@@ -104,13 +108,13 @@ export default function EditProject() {
                   required
                   defaultValue={project.title}
                   className="w-full px-4 py-2 bg-background border border-border rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary"
-                  placeholder="Project title"
+                  placeholder={t('titlePlaceholder')}
                 />
               </div>
 
               <div>
                 <label htmlFor="client" className="block text-sm font-semibold text-foreground mb-2">
-                  Client Name
+                  {t('clientName')}
                 </label>
                 <input
                   type="text"
@@ -118,14 +122,14 @@ export default function EditProject() {
                   name="client"
                   defaultValue={project.client || ''}
                   className="w-full px-4 py-2 bg-background border border-border rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary"
-                  placeholder="Client name"
+                  placeholder={t('clientPlaceholder')}
                 />
               </div>
             </div>
 
             <div>
               <label htmlFor="description" className="block text-sm font-semibold text-foreground mb-2">
-                Description *
+                {tc('description')} *
               </label>
               <textarea
                 id="description"
@@ -134,13 +138,13 @@ export default function EditProject() {
                 rows={3}
                 defaultValue={project.description}
                 className="w-full px-4 py-2 bg-background border border-border rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary resize-none"
-                placeholder="Brief description of the project"
+                placeholder={t('descriptionPlaceholder')}
               />
             </div>
 
             <div>
               <label htmlFor="content" className="block text-sm font-semibold text-foreground mb-2">
-                Content
+                {t('content')}
               </label>
               <textarea
                 id="content"
@@ -148,17 +152,17 @@ export default function EditProject() {
                 rows={6}
                 defaultValue={project.content || ''}
                 className="w-full px-4 py-2 bg-background border border-border rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary resize-none"
-                placeholder="Detailed project content"
+                placeholder={t('contentPlaceholder')}
               />
             </div>
 
             {project.image && (
               <div className="rounded-xl overflow-hidden border border-border mb-6">
-                <div className="text-sm font-semibold text-foreground px-4 py-2 bg-card">Current image</div>
+                <div className="text-sm font-semibold text-foreground px-4 py-2 bg-card">{t('currentImage')}</div>
                 <div className="relative h-64">
                   <Image
                     src={project.image}
-                    alt="Current project image"
+                    alt={t('currentImageAlt')}
                     fill
                     className="object-cover"
                   />
@@ -168,7 +172,7 @@ export default function EditProject() {
 
             <div>
               <label htmlFor="image" className="block text-sm font-semibold text-foreground mb-2">
-                Upload new image
+                {t('uploadNewImage')}
               </label>
               <input
                 type="file"
@@ -177,14 +181,14 @@ export default function EditProject() {
                 accept="image/*"
                 className="w-full text-sm text-foreground file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border file:border-border file:bg-primary/10 file:text-primary file:font-semibold file:hover:bg-primary/20"
               />
-              <p className="text-sm text-muted-foreground mt-2">Leave blank to keep the existing image.</p>
+              <p className="text-sm text-muted-foreground mt-2">{t('keepExistingImage')}</p>
             </div>
 
             <input type="hidden" name="currentImage" value={project.image ?? ''} />
 
             <div>
               <label htmlFor="tags" className="block text-sm font-semibold text-foreground mb-2">
-                Tags
+                {t('tags')}
               </label>
               <input
                 type="text"
@@ -192,7 +196,7 @@ export default function EditProject() {
                 name="tags"
                 defaultValue={project.tags?.join(', ') || ''}
                 className="w-full px-4 py-2 bg-background border border-border rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary"
-                placeholder="React, Next.js, Tailwind (comma separated)"
+                placeholder={t('tagsPlaceholder')}
               />
             </div>
 
@@ -205,16 +209,16 @@ export default function EditProject() {
                 className="w-4 h-4 rounded border-border accent-primary"
               />
               <label htmlFor="published" className="text-sm font-medium text-foreground">
-                Publish this project
+                {t('publishProject')}
               </label>
             </div>
 
             <div className="flex gap-3 pt-6 border-t border-border">
               <Button type="submit" disabled={loading}>
-                {loading ? 'Saving...' : 'Save Changes'}
+                {loading ? tc('saving') : tc('saveChanges')}
               </Button>
               <Link href="/admin/projects">
-                <Button variant="outline">Cancel</Button>
+                <Button variant="outline">{tc('cancel')}</Button>
               </Link>
             </div>
           </form>

@@ -5,8 +5,12 @@ import { Footer } from '@/components/footer'
 import { Button } from '@/components/ui/button'
 import { motion } from 'framer-motion'
 import { useState } from 'react'
+import { useTranslations } from 'next-intl'
 
 export default function Contact() {
+  const t = useTranslations('Contact')
+  const tf = useTranslations('Footer')
+  const tc = useTranslations('Common')
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -47,7 +51,7 @@ export default function Contact() {
   return (
     <main className="min-h-screen bg-background">
       <Navigation />
-      
+
       <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto">
           <motion.div
@@ -56,9 +60,9 @@ export default function Contact() {
             transition={{ duration: 0.8 }}
             className="text-center mb-16"
           >
-            <h1 className="text-5xl md:text-6xl font-bold text-foreground mb-4">Get in Touch</h1>
+            <h1 className="text-5xl md:text-6xl font-bold text-foreground mb-4">{t('title')}</h1>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Have a project in mind? We&apos;d love to hear from you. Send us a message and we&apos;ll respond as soon as possible.
+              {t('subtitle')}
             </p>
           </motion.div>
 
@@ -72,10 +76,10 @@ export default function Contact() {
               <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mx-auto mb-4">
                 <span className="text-2xl">📧</span>
               </div>
-              <h3 className="font-semibold text-foreground mb-2">Email</h3>
-           <a href="mailto:team.connectx.solutions@gmail.com" className="text-primary hover:underline">
- team.connectx.solutions
-</a>
+              <h3 className="font-semibold text-foreground mb-2">{t('email')}</h3>
+              <a href="mailto:team.connectx.solutions@gmail.com" className="text-primary hover:underline">
+                team.connectx.solutions
+              </a>
             </motion.div>
 
             <motion.div
@@ -87,7 +91,7 @@ export default function Contact() {
               <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mx-auto mb-4">
                 <span className="text-2xl">📞</span>
               </div>
-              <h3 className="font-semibold text-foreground mb-2">Phone</h3>
+              <h3 className="font-semibold text-foreground mb-2">{t('phone')}</h3>
               <a href="tel:+201019971564" className="text-primary hover:underline">
                 +2 01019971564
               </a>
@@ -102,8 +106,8 @@ export default function Contact() {
               <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mx-auto mb-4">
                 <span className="text-2xl">📍</span>
               </div>
-              <h3 className="font-semibold text-foreground mb-2">Location</h3>
-              <p className="text-muted-foreground">Assiut, Egypt</p>
+              <h3 className="font-semibold text-foreground mb-2">{t('location')}</h3>
+              <p className="text-muted-foreground">{tf('location')}</p>
             </motion.div>
           </div>
 
@@ -116,14 +120,14 @@ export default function Contact() {
           >
             {submitted && (
               <div className="p-4 bg-primary/10 border border-primary/30 rounded-lg text-primary text-center">
-                Thank you! We&apos;ve received your message and will get back to you soon.
+                {t('successMessage')}
               </div>
             )}
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <label htmlFor="name" className="block text-sm font-medium text-foreground mb-2">
-                  Full Name
+                  {t('fullName')}
                 </label>
                 <input
                   type="text"
@@ -133,12 +137,12 @@ export default function Contact() {
                   onChange={handleChange}
                   required
                   className="w-full px-4 py-2 bg-background border border-border rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary"
-                  placeholder="Your name"
+                  placeholder={t('namePlaceholder')}
                 />
               </div>
               <div>
                 <label htmlFor="email" className="block text-sm font-medium text-foreground mb-2">
-                  Email Address
+                  {t('emailAddress')}
                 </label>
                 <input
                   type="email"
@@ -148,14 +152,14 @@ export default function Contact() {
                   onChange={handleChange}
                   required
                   className="w-full px-4 py-2 bg-background border border-border rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary"
-                  placeholder="your.email@example.com"
+                  placeholder={t('emailPlaceholder')}
                 />
               </div>
             </div>
 
             <div>
               <label htmlFor="subject" className="block text-sm font-medium text-foreground mb-2">
-                Subject
+                {tc('subject')}
               </label>
               <input
                 type="text"
@@ -165,13 +169,13 @@ export default function Contact() {
                 onChange={handleChange}
                 required
                 className="w-full px-4 py-2 bg-background border border-border rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary"
-                placeholder="What is this about?"
+                placeholder={t('subjectPlaceholder')}
               />
             </div>
 
             <div>
               <label htmlFor="message" className="block text-sm font-medium text-foreground mb-2">
-                Message
+                {tc('message')}
               </label>
               <textarea
                 id="message"
@@ -181,12 +185,12 @@ export default function Contact() {
                 required
                 rows={6}
                 className="w-full px-4 py-2 bg-background border border-border rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary resize-none"
-                placeholder="Tell us about your project..."
+                placeholder={t('messagePlaceholder')}
               />
             </div>
 
             <Button size="lg" disabled={loading} className="w-full">
-              {loading ? 'Sending...' : 'Send Message'}
+              {loading ? t('sending') : t('sendMessage')}
             </Button>
           </motion.form>
         </div>

@@ -2,12 +2,16 @@
 
 import { signIn } from "next-auth/react";
 import { Button } from "@/components/ui/button";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import Image from "next/image";
 import { useState } from "react";
-import { useSearchParams, useRouter } from "next/navigation";
+import { useSearchParams } from "next/navigation";
+import { useRouter } from "@/i18n/navigation";
+import { useTranslations } from "next-intl";
 
 export default function LoginForm() {
+  const t = useTranslations('Login')
+  const tc = useTranslations('Common')
   const searchParams = useSearchParams();
   const router = useRouter();
   const [loading, setLoading] = useState(false);
@@ -31,7 +35,7 @@ export default function LoginForm() {
     setLoading(false);
 
     if (result?.error) {
-      setError("Invalid email or password.");
+      setError(t('invalidCredentials'));
       return;
     }
 
@@ -40,28 +44,26 @@ export default function LoginForm() {
     }
   };
 
-  // Simplified: standard boolean assignment is faster than initializing useMemo here
   const canSubmit = email.trim() !== "" && password !== "";
 
   return (
     <div className="w-full max-w-md">
       <div className="bg-card border border-border rounded-2xl p-8">
         <div className="flex flex-col items-center text-center mb-8">
-          {/* Fixed: Replaced 'fill' with explicit dimensions and added wrapper spacing */}
           <div className="mb-4">
             <Image
               src="/logo without background.png"
-              alt="ConnectX Solutions logo"
-              width={180} 
+              alt={tc('logoAlt')}
+              width={180}
               height={50}
               className="object-contain"
               priority
             />
           </div>
-          
-          <h1 className="text-2xl font-bold text-foreground">Employee Login</h1>
+
+          <h1 className="text-2xl font-bold text-foreground">{t('title')}</h1>
           <p className="text-muted-foreground text-sm mt-2">
-            Only authorized employees can access the dashboard.
+            {t('subtitle')}
           </p>
         </div>
 
@@ -77,7 +79,7 @@ export default function LoginForm() {
               htmlFor="email"
               className="block text-sm font-semibold text-foreground mb-2"
             >
-              Email
+              {tc('email')}
             </label>
             <input
               id="email"
@@ -86,7 +88,7 @@ export default function LoginForm() {
               onChange={(e) => setEmail(e.target.value)}
               required
               className="w-full px-4 py-3 bg-background border border-border rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary"
-              placeholder="you@company.com"
+              placeholder={t('emailPlaceholder')}
             />
           </div>
 
@@ -95,7 +97,7 @@ export default function LoginForm() {
               htmlFor="password"
               className="block text-sm font-semibold text-foreground mb-2"
             >
-              Password
+              {tc('password')}
             </label>
             <input
               id="password"
@@ -114,17 +116,17 @@ export default function LoginForm() {
             size="lg"
             className="w-full"
           >
-            {loading ? "Signing in..." : "Sign In"}
+            {loading ? t('signingIn') : t('signIn')}
           </Button>
         </form>
 
         <div className="mt-6 text-center text-sm text-muted-foreground">
-          <p>Login is restricted to ConnectX employees only.</p>
+          <p>{t('restricted')}</p>
         </div>
 
         <div className="mt-8 pt-8 border-t border-border text-center">
           <Link href="/" className="text-primary hover:underline text-sm">
-            Back to home
+            {tc('backToHome')}
           </Link>
         </div>
       </div>

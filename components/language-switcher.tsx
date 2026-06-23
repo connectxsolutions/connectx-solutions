@@ -1,7 +1,7 @@
 'use client'
 
 import { useTransition } from 'react'
-import { useLocale } from 'next-intl'
+import { useLocale, useTranslations } from 'next-intl'
 import { usePathname, useRouter } from '@/i18n/navigation'
 import { Globe } from 'lucide-react'
 
@@ -18,6 +18,7 @@ export function LanguageSwitcher() {
   const router = useRouter()
   const pathname = usePathname()
   const locale = useLocale()
+  const t = useTranslations('LanguageSwitcher')
 
   const onSelectChange = (nextLocale: string) => {
     // تجنب إعادة التوجيه لو ضغط المستخدم على اللغة الحالية المفعلة بالفعل
@@ -38,7 +39,7 @@ export function LanguageSwitcher() {
           disabled={isPending}
         >
           <Globe className="h-5 w-5" />
-          <span className="sr-only">Change language</span>
+          <span className="sr-only">{t('changeLanguage')}</span>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
@@ -52,7 +53,7 @@ export function LanguageSwitcher() {
           onClick={() => onSelectChange('ar')}
           className={locale === 'ar' ? 'font-bold' : ''}
         >
-          العربية
+          {t('arabic')}
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
