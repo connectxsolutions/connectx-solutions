@@ -1,12 +1,17 @@
 'use client'
 
 import Image from 'next/image'
-import Link from 'next/link'
+import { Link } from '@/i18n/navigation'
 import { useSession, signOut } from 'next-auth/react'
 import { Button } from '@/components/ui/button'
+import { useTranslations, useLocale } from 'next-intl'
+import { ThemeToggle } from './theme-toggle'
+import { LanguageSwitcher } from './language-switcher'
 
 export function Navigation() {
   const { data: session } = useSession()
+  const t = useTranslations('Navigation')
+  const locale = useLocale()
 
   return (
     <nav className="fixed top-0 z-50 w-full bg-background/80 backdrop-blur-md border-b border-border">
@@ -25,29 +30,31 @@ export function Navigation() {
           </Link>
 
           <div className="hidden md:flex gap-8">
-            <Link href="/#services" className="text-muted-foreground hover:text-foreground transition-colors">Services</Link>
-            <Link href="/portfolio" className="text-muted-foreground hover:text-foreground transition-colors">Portfolio</Link>
-            <Link href="/about" className="text-muted-foreground hover:text-foreground transition-colors">About</Link>
-            <Link href="/contact" className="text-muted-foreground hover:text-foreground transition-colors">Contact</Link>
+            <Link href="/#services" className="text-muted-foreground hover:text-foreground transition-colors">{t('services')}</Link>
+            <Link href="/portfolio" className="text-muted-foreground hover:text-foreground transition-colors">{t('portfolio')}</Link>
+            <Link href="/about" className="text-muted-foreground hover:text-foreground transition-colors">{t('about')}</Link>
+            <Link href="/contact" className="text-muted-foreground hover:text-foreground transition-colors">{t('contact')}</Link>
           </div>
 
-          <div className="flex gap-3">
+          <div className="flex items-center gap-3">
+            <ThemeToggle />
+            <LanguageSwitcher />
             {session?.user ? (
               <>
                 <Link href="/admin">
-                  <Button variant="outline" size="sm">Dashboard</Button>
+                  <Button variant="outline" size="sm">{t('dashboard')}</Button>
                 </Link>
                 <Button
                   size="sm"
                   variant="ghost"
-                  onClick={() => signOut({ callbackUrl: '/' })}
+                  onClick={() => signOut({ callbackUrl: `/${locale}` })}
                 >
-                  Sign Out
+                  {t('signOut')}
                 </Button>
               </>
             ) : (
               <Link href="/login">
-                <Button size="sm">Sign In</Button>
+                <Button size="sm">{t('signIn')}</Button>
               </Link>
             )}
           </div>

@@ -1,0 +1,15 @@
+{
+  "Navigation": {
+    "services": "الخدمات",
+    "portfolio": "أعمالنا",
+    "about": "من نحن",
+    "contact": "تواصل معنا",
+    "signIn": "تسجيل الدخول",
+    "signOut": "تسجيل الخروج",
+    "dashboard": "لوحة التحكم"
+  },
+  "Hero": {
+    "getStarted": "ابدأ الآن",
+    "viewWork": "شاهد أعمالنا"
+  }
+}

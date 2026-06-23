@@ -1,3 +1,5 @@
+import nextIntl from 'next-intl/plugin'
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   typescript: {
@@ -14,4 +16,4 @@ const nextConfig = {
   },
 }
 
-export default nextConfig
+export default nextIntl({ requestConfig: './i18n.ts' })(nextConfig)

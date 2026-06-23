@@ -1,0 +1,15 @@
+{
+  "Navigation": {
+    "services": "Services",
+    "portfolio": "Portfolio",
+    "about": "About",
+    "contact": "Contact",
+    "signIn": "Sign In",
+    "signOut": "Sign Out",
+    "dashboard": "Dashboard"
+  },
+  "Hero": {
+    "getStarted": "Get Started",
+    "viewWork": "View Our Work"
+  }
+}
