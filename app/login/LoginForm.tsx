@@ -1,60 +1,68 @@
-'use client'
+"use client";
 
-import { signIn } from 'next-auth/react'
-import { Button } from '@/components/ui/button'
-import Link from 'next/link'
-import { useState, useMemo } from 'react'
-import { useSearchParams, useRouter } from 'next/navigation'
+import { signIn } from "next-auth/react";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
+import Image from "next/image";
+import { useState } from "react";
+import { useSearchParams, useRouter } from "next/navigation";
 
 export default function LoginForm() {
-  const searchParams = useSearchParams()
-  const router = useRouter()
-  const [loading, setLoading] = useState(false)
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [error, setError] = useState('')
-  const callbackUrl = searchParams.get('callbackUrl') || '/admin'
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const [loading, setLoading] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const callbackUrl = searchParams.get("callbackUrl") || "/admin";
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
-    setLoading(true)
-    setError('')
+    event.preventDefault();
+    setLoading(true);
+    setError("");
 
-    const result = await signIn('credentials', {
+    const result = await signIn("credentials", {
       redirect: false,
       email,
       password,
       callbackUrl,
-    })
+    });
 
-    setLoading(false)
+    setLoading(false);
 
     if (result?.error) {
-      setError('Invalid email or password.')
-      return
+      setError("Invalid email or password.");
+      return;
     }
 
     if (result?.ok) {
-      router.push(callbackUrl)
+      router.push(callbackUrl);
     }
-  }
+  };
 
-  const canSubmit = useMemo(() => email.trim() !== '' && password !== '', [email, password])
+  // Simplified: standard boolean assignment is faster than initializing useMemo here
+  const canSubmit = email.trim() !== "" && password !== "";
 
   return (
     <div className="w-full max-w-md">
       <div className="bg-card border border-border rounded-2xl p-8">
-        <div className="text-center mb-8">
-          <div className="w-12 h-12 bg-gradient-to-br from-primary to-accent rounded-lg flex items-center justify-center mx-auto mb-4">
-     <Image
-                  src="/logo without background.png"
-                  alt="ConnectX Solutions logo"
-                  fill
-                  className="object-contain"
-                  priority
-                />          </div>
+        <div className="flex flex-col items-center text-center mb-8">
+          {/* Fixed: Replaced 'fill' with explicit dimensions and added wrapper spacing */}
+          <div className="mb-4">
+            <Image
+              src="/logo without background.png"
+              alt="ConnectX Solutions logo"
+              width={180} 
+              height={50}
+              className="object-contain"
+              priority
+            />
+          </div>
+          
           <h1 className="text-2xl font-bold text-foreground">Employee Login</h1>
-          <p className="text-muted-foreground text-sm mt-2">Only authorized employees can access the dashboard.</p>
+          <p className="text-muted-foreground text-sm mt-2">
+            Only authorized employees can access the dashboard.
+          </p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -65,7 +73,10 @@ export default function LoginForm() {
           )}
 
           <div>
-            <label htmlFor="email" className="block text-sm font-semibold text-foreground mb-2">
+            <label
+              htmlFor="email"
+              className="block text-sm font-semibold text-foreground mb-2"
+            >
               Email
             </label>
             <input
@@ -80,7 +91,10 @@ export default function LoginForm() {
           </div>
 
           <div>
-            <label htmlFor="password" className="block text-sm font-semibold text-foreground mb-2">
+            <label
+              htmlFor="password"
+              className="block text-sm font-semibold text-foreground mb-2"
+            >
               Password
             </label>
             <input
@@ -94,8 +108,13 @@ export default function LoginForm() {
             />
           </div>
 
-          <Button type="submit" disabled={loading || !canSubmit} size="lg" className="w-full">
-            {loading ? 'Signing in...' : 'Sign In'}
+          <Button
+            type="submit"
+            disabled={loading || !canSubmit}
+            size="lg"
+            className="w-full"
+          >
+            {loading ? "Signing in..." : "Sign In"}
           </Button>
         </form>
 
@@ -110,5 +129,5 @@ export default function LoginForm() {
         </div>
       </div>
     </div>
-  )
+  );
 }

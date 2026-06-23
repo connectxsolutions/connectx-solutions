@@ -73,9 +73,9 @@ export default function Contact() {
                 <span className="text-2xl">📧</span>
               </div>
               <h3 className="font-semibold text-foreground mb-2">Email</h3>
-              <a href="mailto:team.connectx.solutions@gmail.com" className="text-primary hover:underline">
-               team.connectx.solutions@gmail.com
-              </a>
+           <a href="mailto:team.connectx.solutions@gmail.com" className="text-primary hover:underline">
+ team.connectx.solutions
+</a>
             </motion.div>
 
             <motion.div

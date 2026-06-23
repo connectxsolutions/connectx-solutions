@@ -13,8 +13,20 @@ export async function connectToDatabase(): Promise<{ client: MongoClient; db: Db
     throw new Error('MONGODB_URI is not set')
   }
 
-  const client = await MongoClient.connect(mongoUri)
-  const db = client.db('connectx')
+  const client = new MongoClient(mongoUri, {
+    serverApi: {
+      version: '1',
+      strict: true,
+      deprecationErrors: true,
+    },
+    tls: true,
+    retryWrites: true,
+    connectTimeoutMS: 10000,
+  })
+
+  await client.connect()
+  const dbName = process.env.MONGODB_DB ?? 'connectx'
+  const db = client.db(dbName)
 
   cachedClient = client
   cachedDb = db

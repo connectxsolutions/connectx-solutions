@@ -75,7 +75,7 @@ export async function createProject(formData: FormData) {
 
   const result = await collection.insertOne(projectData)
 
-  return { _id: result.insertedId }
+  return { _id: result.insertedId.toString() }
 }
 
 export async function updateProject(id: string, formData: FormData) {
@@ -151,7 +151,7 @@ export async function createService(formData: FormData) {
     updatedAt: new Date(),
   })
 
-  return { _id: result.insertedId }
+  return { _id: result.insertedId.toString() }
 }
 
 export async function updateService(id: string, formData: FormData) {
@@ -213,7 +213,7 @@ export async function createTestimonial(formData: FormData) {
     updatedAt: new Date(),
   })
 
-  return { _id: result.insertedId }
+  return { _id: result.insertedId.toString() }
 }
 
 export async function updateTestimonial(id: string, formData: FormData) {

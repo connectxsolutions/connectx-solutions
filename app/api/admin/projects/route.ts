@@ -18,7 +18,14 @@ export async function GET(req: Request) {
       .sort({ createdAt: -1 })
       .toArray()
 
-    return Response.json(projects)
+    const serializedProjects = projects.map(project => ({
+      ...project,
+      _id: project._id.toString(),
+      createdAt: project.createdAt instanceof Date ? project.createdAt.toISOString() : project.createdAt,
+      updatedAt: project.updatedAt instanceof Date ? project.updatedAt.toISOString() : project.updatedAt,
+    }))
+
+    return Response.json(serializedProjects)
   } catch (error) {
     console.error('Admin projects API error:', error)
     return Response.json(
@@ -60,7 +67,7 @@ export async function POST(req: Request) {
     })
 
     return Response.json(
-      { _id: result.insertedId, ...{ title, description } },
+      { _id: result.insertedId.toString(), ...{ title, description } },
       { status: 201 }
     )
   } catch (error) {

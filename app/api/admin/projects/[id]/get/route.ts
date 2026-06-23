@@ -6,9 +6,16 @@ import { Db, Collection } from 'mongodb'
 
 export async function GET(
   req: Request,
-  { params }: { params: { id: string } }
+  { params }: { params:Promise<{ id: string }> }
 ) {
   try {
+    const {id} = await params ;
+       if (!ObjectId.isValid(id)) {
+      return Response.json(
+        { error: 'Invalid project ID format' },
+        { status: 400 }
+      )
+    }
     const session = await getServerSession(authOptions)
     if (!session) {
       return Response.json({ error: 'Unauthorized' }, { status: 401 })
@@ -18,7 +25,7 @@ export async function GET(
     const collection: Collection = db.collection('projects')
 
     const project = await collection.findOne({
-      _id: new ObjectId(params.id)
+      _id: new ObjectId(id)
     })
 
     if (!project) {
@@ -28,7 +35,12 @@ export async function GET(
       )
     }
 
-    return Response.json(project)
+    return Response.json({
+      ...project,
+      _id: project._id.toString(),
+      createdAt: project.createdAt instanceof Date ? project.createdAt.toISOString() : project.createdAt,
+      updatedAt: project.updatedAt instanceof Date ? project.updatedAt.toISOString() : project.updatedAt,
+    })
   } catch (error) {
     console.error('Get project error:', error)
     return Response.json(

@@ -12,7 +12,14 @@ export async function GET() {
       .limit(12)
       .toArray()
 
-    return Response.json(projects)
+    const serializedProjects = projects.map(project => ({
+      ...project,
+      _id: project._id.toString(),
+      createdAt: project.createdAt instanceof Date ? project.createdAt.toISOString() : project.createdAt,
+      updatedAt: project.updatedAt instanceof Date ? project.updatedAt.toISOString() : project.updatedAt,
+    }))
+
+    return Response.json(serializedProjects)
   } catch (error) {
     console.error('Projects API error:', error)
     return Response.json(

@@ -4,6 +4,11 @@ import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { Button } from '@/components/ui/button'
 import { ArrowRight } from 'lucide-react'
+import Lottie from 'lottie-react'
+
+// 1. استيراد ملف الـ JSON الخاص بالإنيميشن
+// تأكد من وضع الملف في مجلد public وتسميته بشكل صحيح
+import heroAnimation from '@/public/Tech.json'
 
 export function Hero() {
   return (
@@ -12,8 +17,9 @@ export function Hero() {
       <div className="absolute top-20 right-10 w-96 h-96 bg-gradient-to-br from-primary/20 to-accent/10 rounded-full blur-3xl opacity-20" />
       <div className="absolute bottom-0 left-10 w-96 h-96 bg-gradient-to-tr from-secondary/20 to-primary/10 rounded-full blur-3xl opacity-20" />
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center py-12 md:py-20">
+          
           {/* Left content */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -32,7 +38,7 @@ export function Hero() {
                 </span>
               </motion.div>
 
-              <h1 className="text-5xl md:text-6xl font-bold text-foreground leading-tight">
+              <h1 className="text-5xl md:text-6xl font-bold text-foreground leading-tight tracking-tight">
                 Digital Solutions That{' '}
                 <span className="bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">
                   Transform
@@ -72,18 +78,27 @@ export function Hero() {
             </div>
           </motion.div>
 
-          {/* Right visual */}
+          {/* Right visual - Lottie Animation Option */}
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="relative h-96 md:h-full"
+            className="relative h-72 sm:h-96 lg:h-[500px] w-full flex items-center justify-center"
           >
-            <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-accent/10 to-secondary/10 rounded-2xl border border-primary/20" />
-            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-              <div className="w-64 h-64 bg-gradient-to-br from-primary via-accent to-secondary rounded-full blur-3xl opacity-30 animate-pulse" />
+            {/* الإضاءة الخلفية (Glow) بتدي شكل جمالي ممتاز ورا الإنيميشن الشفاف */}
+            <div className="absolute w-72 h-72 bg-gradient-to-br from-primary via-accent to-secondary rounded-full blur-3xl opacity-25 animate-pulse" />
+
+            {/* حاوية الـ Lottie Animation */}
+            <div className="relative z-10 w-full max-w-[450px] lg:max-w-[550px] aspect-square flex items-center justify-center">
+              <Lottie 
+                animationData={heroAnimation} 
+                loop={true} 
+                autoplay={true}
+                className="w-full h-full object-contain"
+              />
             </div>
           </motion.div>
+
         </div>
       </div>
     </section>

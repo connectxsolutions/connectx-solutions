@@ -50,15 +50,15 @@ export function Footer() {
             <ul className="space-y-2">
               <li className="flex gap-2 items-center text-sm text-muted-foreground">
                 <Mail className="w-4 h-4" />
-                <a href="mailto:hello@connectx.com" className="hover:text-primary transition-colors">hello@connectx.com</a>
+                <a href="mailto:team.connectx.solutions@gmail.com" className="hover:text-primary transition-colors">team.connectx.solutions@gmail.com</a>
               </li>
               <li className="flex gap-2 items-center text-sm text-muted-foreground">
                 <Phone className="w-4 h-4" />
-                <a href="tel:+1234567890" className="hover:text-primary transition-colors">+1 (234) 567-890</a>
+                <a href="tel:+2 01019971564" className="hover:text-primary transition-colors">+2 01019971564</a>
               </li>
               <li className="flex gap-2 items-start text-sm text-muted-foreground">
                 <MapPin className="w-4 h-4 mt-0.5" />
-                <span>San Francisco, CA</span>
+                <span>Assiut, Egypt</span>
               </li>
             </ul>
           </div>
