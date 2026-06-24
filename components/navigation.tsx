@@ -18,17 +18,17 @@ export function Navigation() {
     <nav className="fixed top-0 z-50 w-full bg-background/80 backdrop-blur-md border-b border-border">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          <Link href="/" className="flex items-center gap-3 group">
-            <div className="relative w-40 h-12 sm:w-48 sm:h-14">
-              <Image
-                src="/logo without background.png"
-                alt={tc('logoAlt')}
-                fill
-                className="object-contain"
-                priority
-              />
-            </div>
-          </Link>
+       <Link href="/" className="flex items-center gap-3 group">
+  {/* أزلنا الـ div الخارجي الذي كان يحتوي على relative و w-40 h-12 */}
+  <Image
+    src="/logo without background.png"
+    alt={tc('logoAlt')}
+    width={180} // العرض الافتراضي المناسب للشعار
+    height={50}  // الارتفاع الافتراضي المناسب للشعار
+    className="object-contain w-40 h-auto sm:w-48" // نتحكم في التجاوب (Responsive) مرن عبر الـ CSS هنا
+    priority
+  />
+</Link>
 
           <div className="hidden md:flex gap-8">
             <Link href="/#services" className="text-muted-foreground hover:text-foreground transition-colors">{t('services')}</Link>

@@ -26,7 +26,7 @@ export async function generateMetadata({
   return {
     title: t('title'),
     description: t('description'),
-    generator: 'v0.app',
+    // تم حذف وسم generator غير الضروري الذي يحقن أحياناً ميتاداتا مسببة لمشاكل الهيدريشن
     icons: {
       icon: [
         {
@@ -54,7 +54,6 @@ export async function generateMetadata({
 
 export const viewport: Viewport = {
   colorScheme: 'dark',
-  // تم تعديل themeColor ليدعم الوضعين
   themeColor: [ 
     { media: '(prefers-color-scheme: light)', color: 'white' },
     { media: '(prefers-color-scheme: dark)', color: '#0a0e27' },
@@ -77,15 +76,19 @@ export default async function LocaleLayout({
   setRequestLocale(locale)
   const messages = await getMessages()
 
+  // فحص صارم للبيئة قبل رندرة أي جزء يخص التحليلات لمنع حقن السكربت في الـ Dev تماماً
+  const isProd = process.env.NODE_ENV === 'production'
+
   return (
     <html lang={locale} dir={locale === 'ar' ? 'rtl' : 'ltr'} className={`${geistSans.variable} ${geistMono.variable}`} suppressHydrationWarning>
-      <body className="font-sans antialiased bg-background text-foreground">
+      <body className="font-sans antialiased bg-background text-foreground" suppressHydrationWarning>
         <NextIntlClientProvider locale={locale} messages={messages}>
           <ThemeProvider>
             <AuthSessionProvider>
               {children}
             </AuthSessionProvider>
-            {process.env.NODE_ENV === 'production' && <Analytics />}
+            {/* تم فصل الشرط هنا لضمان عدم قراءته أو رندرته نهائياً في بيئة التطوير المحلية */}
+            {isProd && <Analytics />}
           </ThemeProvider>
         </NextIntlClientProvider>
       </body>

@@ -11,6 +11,7 @@ export default function Contact() {
   const t = useTranslations('Contact')
   const tf = useTranslations('Footer')
   const tc = useTranslations('Common')
+  
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -136,7 +137,8 @@ export default function Contact() {
                   value={formData.name}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-2 bg-background border border-border rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary"
+                  disabled={loading} // تعطيل الحقل أثناء الإرسال لـ UX أفضل
+                  className="w-full px-4 py-2 bg-background border border-border rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary disabled:opacity-50"
                   placeholder={t('namePlaceholder')}
                 />
               </div>
@@ -151,7 +153,8 @@ export default function Contact() {
                   value={formData.email}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-2 bg-background border border-border rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary"
+                  disabled={loading} // تعطيل الحقل أثناء الإرسال لـ UX أفضل
+                  className="w-full px-4 py-2 bg-background border border-border rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary disabled:opacity-50"
                   placeholder={t('emailPlaceholder')}
                 />
               </div>
@@ -168,7 +171,8 @@ export default function Contact() {
                 value={formData.subject}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-2 bg-background border border-border rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary"
+                disabled={loading}
+                className="w-full px-4 py-2 bg-background border border-border rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary disabled:opacity-50"
                 placeholder={t('subjectPlaceholder')}
               />
             </div>
@@ -184,12 +188,14 @@ export default function Contact() {
                 onChange={handleChange}
                 required
                 rows={6}
-                className="w-full px-4 py-2 bg-background border border-border rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary resize-none"
+                disabled={loading}
+                className="w-full px-4 py-2 bg-background border border-border rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary resize-none disabled:opacity-50"
                 placeholder={t('messagePlaceholder')}
               />
             </div>
 
-            <Button size="lg" disabled={loading} className="w-full">
+            {/* تم الإصلاح: إضافة نوع الزر صراحة ليكون تفاعلي بالكامل */}
+            <Button type="submit" size="lg" disabled={loading} className="w-full">
               {loading ? t('sending') : t('sendMessage')}
             </Button>
           </motion.form>
