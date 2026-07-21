@@ -5,6 +5,7 @@ import { motion } from 'framer-motion'
 import { Button } from '@/components/ui/button'
 import { ArrowRight } from 'lucide-react'
 import dynamic from 'next/dynamic'
+import { useState, useEffect } from 'react'
 import { useTranslations } from 'next-intl'
 
 // Dynamic import for Lottie — avoids loading the heavy animation library in the critical JS bundle.
@@ -19,7 +20,7 @@ const Lottie = dynamic(() => import('lottie-react'), {
 })
 
 // Lazy-load the heavy Lottie JSON data only when needed
-const heroAnimation = () => import('@/public/Tech.json').then(m => m.default)
+const loadHeroAnimation = () => import('@/public/Tech.json').then(m => m.default)
 
 export function Hero() {
   const t = useTranslations('Hero')
@@ -122,9 +123,17 @@ export function Hero() {
 
 // Separate component so the dynamic import resolves after the text content is painted
 function LottieAnimation() {
+  const [animationData, setAnimationData] = useState<object | null>(null)
+
+  useEffect(() => {
+    loadHeroAnimation().then(setAnimationData)
+  }, [])
+
+  if (!animationData) return null
+
   return (
     <Lottie
-      animationData={heroAnimation}
+      animationData={animationData}
       loop={true}
       autoplay={true}
       className="w-full h-full object-contain"
