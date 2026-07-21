@@ -1,4 +1,6 @@
 import { connectDB } from '@/lib/mongodb'
+import { getServerSession } from 'next-auth'
+import { authOptions } from '@/lib/auth'
 import { Db } from 'mongodb';
 
 
@@ -12,7 +14,10 @@ interface OverviewStats {
 
 export async function GET() {
   try {
- 
+    const session = await getServerSession(authOptions)
+    if (!session) {
+      return Response.json({ error: 'Unauthorized' }, { status: 401 })
+    }
 
     const db: Db = await connectDB()
 

@@ -79,47 +79,79 @@ export default function ServicesAdmin() {
                 {t('noServices')}
               </div>
             ) : (
-              <div className="overflow-x-auto">
-                <table className="w-full">
-                  <thead>
-                    <tr className="border-b border-border bg-card/50">
-                      <th className="px-6 py-4 text-left text-sm font-semibold text-foreground">{tc('title')}</th>
-                      <th className="px-6 py-4 text-left text-sm font-semibold text-foreground">{tc('description')}</th>
-                      <th className="px-6 py-4 text-right text-sm font-semibold text-foreground">{tc('actions')}</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {services.map((service, index) => (
-                      <tr
-                        key={service._id}
-                        className={`${
-                          index !== services.length - 1 ? 'border-b border-border' : ''
-                        } hover:bg-card/80 transition-colors`}
-                      >
-                        <td className="px-6 py-4 text-foreground font-medium">{service.title}</td>
-                        <td className="px-6 py-4 text-muted-foreground text-sm truncate">{service.description}</td>
-                        <td className="px-6 py-4 text-right space-x-2">
-                          <Link href={`/admin/services/${service._id}`}>
-                            <Button variant="outline" size="sm" className="gap-1">
-                              <Edit className="w-4 h-4" />
-                              {tc('edit')}
-                            </Button>
-                          </Link>
-                          <Button
-                            variant="outline"
-                            size="sm"
-                            className="gap-1 text-destructive hover:bg-destructive/10"
-                            onClick={() => handleDelete(service._id)}
-                          >
-                            <Trash2 className="w-4 h-4" />
-                            {tc('delete')}
+              <>
+                {/* Mobile Card View */}
+                <div className="block md:hidden divide-y divide-border">
+                  {services.map((service) => (
+                    <div key={service._id} className="p-4 flex flex-col gap-3">
+                      <div>
+                        <p className="font-medium text-foreground">{service.title}</p>
+                        <p className="text-sm text-muted-foreground mt-1 line-clamp-2">{service.description}</p>
+                      </div>
+                      <div className="flex gap-2">
+                        <Link href={`/admin/services/${service._id}`} className="flex-1">
+                          <Button variant="outline" size="sm" className="w-full gap-1">
+                            <Edit className="w-4 h-4" />
+                            {tc('edit')}
                           </Button>
-                        </td>
+                        </Link>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          className="flex-1 gap-1 text-destructive hover:bg-destructive/10"
+                          onClick={() => handleDelete(service._id)}
+                        >
+                          <Trash2 className="w-4 h-4" />
+                          {tc('delete')}
+                        </Button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Desktop Table View */}
+                <div className="hidden md:block overflow-x-auto">
+                  <table className="w-full">
+                    <thead>
+                      <tr className="border-b border-border bg-card/50">
+                        <th className="px-6 py-4 text-left text-sm font-semibold text-foreground">{tc('title')}</th>
+                        <th className="px-6 py-4 text-left text-sm font-semibold text-foreground">{tc('description')}</th>
+                        <th className="px-6 py-4 text-right text-sm font-semibold text-foreground">{tc('actions')}</th>
                       </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
+                    </thead>
+                    <tbody>
+                      {services.map((service, index) => (
+                        <tr
+                          key={service._id}
+                          className={`${
+                            index !== services.length - 1 ? 'border-b border-border' : ''
+                          } hover:bg-card/80 transition-colors`}
+                        >
+                          <td className="px-6 py-4 text-foreground font-medium">{service.title}</td>
+                          <td className="px-6 py-4 text-muted-foreground text-sm truncate max-w-xs">{service.description}</td>
+                          <td className="px-6 py-4 text-right space-x-2">
+                            <Link href={`/admin/services/${service._id}`}>
+                              <Button variant="outline" size="sm" className="gap-1">
+                                <Edit className="w-4 h-4" />
+                                {tc('edit')}
+                              </Button>
+                            </Link>
+                            <Button
+                              variant="outline"
+                              size="sm"
+                              className="gap-1 text-destructive hover:bg-destructive/10"
+                              onClick={() => handleDelete(service._id)}
+                            >
+                              <Trash2 className="w-4 h-4" />
+                              {tc('delete')}
+                            </Button>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </>
             )}
           </div>
 

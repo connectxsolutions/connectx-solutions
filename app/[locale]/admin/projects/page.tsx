@@ -79,59 +79,98 @@ export default function ProjectsAdmin() {
                 {t('noProjects')}
               </div>
             ) : (
-              <div className="overflow-x-auto">
-                <table className="w-full">
-                  <thead>
-                    <tr className="border-b border-border bg-card/50">
-                      <th className="px-6 py-4 text-left text-sm font-semibold text-foreground">{tc('title')}</th>
-                      <th className="px-6 py-4 text-left text-sm font-semibold text-foreground">{t('status')}</th>
-                      <th className="px-6 py-4 text-left text-sm font-semibold text-foreground">{t('created')}</th>
-                      <th className="px-6 py-4 text-right text-sm font-semibold text-foreground">{tc('actions')}</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {projects.map((project, index) => (
-                      <tr
-                        key={project._id}
-                        className={`${
-                          index !== projects.length - 1 ? 'border-b border-border' : ''
-                        } hover:bg-card/80 transition-colors`}
-                      >
-                        <td className="px-6 py-4 text-foreground font-medium">{project.title}</td>
-                        <td className="px-6 py-4">
-                          <span className={`inline-block px-3 py-1 rounded-full text-xs font-medium ${
-                            project.published
-                              ? 'bg-primary/10 text-primary'
-                              : 'bg-muted text-muted-foreground'
-                          }`}>
-                            {project.published ? tc('published') : tc('draft')}
-                          </span>
-                        </td>
-                        <td className="px-6 py-4 text-muted-foreground text-sm">
-                          {new Date(project.createdAt).toLocaleDateString()}
-                        </td>
-                        <td className="px-6 py-4 text-right space-x-2">
-                          <Link href={`/admin/projects/${project._id}`}>
-                            <Button variant="outline" size="sm" className="gap-1">
-                              <Edit className="w-4 h-4" />
-                              {tc('edit')}
-                            </Button>
-                          </Link>
-                          <Button
-                            variant="outline"
-                            size="sm"
-                            className="gap-1 text-destructive hover:bg-destructive/10"
-                            onClick={() => handleDelete(project._id)}
-                          >
-                            <Trash2 className="w-4 h-4" />
-                            {tc('delete')}
+              <>
+                {/* Mobile Card View */}
+                <div className="block md:hidden divide-y divide-border">
+                  {projects.map((project) => (
+                    <div key={project._id} className="p-4 flex flex-col gap-3">
+                      <div className="flex items-start justify-between gap-2">
+                        <p className="font-medium text-foreground">{project.title}</p>
+                        <span className={`shrink-0 inline-block px-2 py-0.5 rounded-full text-xs font-medium ${
+                          project.published
+                            ? 'bg-primary/10 text-primary'
+                            : 'bg-muted text-muted-foreground'
+                        }`}>
+                          {project.published ? tc('published') : tc('draft')}
+                        </span>
+                      </div>
+                      <p className="text-xs text-muted-foreground">{new Date(project.createdAt).toLocaleDateString()}</p>
+                      <div className="flex gap-2">
+                        <Link href={`/admin/projects/${project._id}`} className="flex-1">
+                          <Button variant="outline" size="sm" className="w-full gap-1">
+                            <Edit className="w-4 h-4" />
+                            {tc('edit')}
                           </Button>
-                        </td>
+                        </Link>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          className="flex-1 gap-1 text-destructive hover:bg-destructive/10"
+                          onClick={() => handleDelete(project._id)}
+                        >
+                          <Trash2 className="w-4 h-4" />
+                          {tc('delete')}
+                        </Button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Desktop Table View */}
+                <div className="hidden md:block overflow-x-auto">
+                  <table className="w-full">
+                    <thead>
+                      <tr className="border-b border-border bg-card/50">
+                        <th className="px-6 py-4 text-left text-sm font-semibold text-foreground">{tc('title')}</th>
+                        <th className="px-6 py-4 text-left text-sm font-semibold text-foreground">{t('status')}</th>
+                        <th className="px-6 py-4 text-left text-sm font-semibold text-foreground">{t('created')}</th>
+                        <th className="px-6 py-4 text-right text-sm font-semibold text-foreground">{tc('actions')}</th>
                       </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
+                    </thead>
+                    <tbody>
+                      {projects.map((project, index) => (
+                        <tr
+                          key={project._id}
+                          className={`${
+                            index !== projects.length - 1 ? 'border-b border-border' : ''
+                          } hover:bg-card/80 transition-colors`}
+                        >
+                          <td className="px-6 py-4 text-foreground font-medium">{project.title}</td>
+                          <td className="px-6 py-4">
+                            <span className={`inline-block px-3 py-1 rounded-full text-xs font-medium ${
+                              project.published
+                                ? 'bg-primary/10 text-primary'
+                                : 'bg-muted text-muted-foreground'
+                            }`}>
+                              {project.published ? tc('published') : tc('draft')}
+                            </span>
+                          </td>
+                          <td className="px-6 py-4 text-muted-foreground text-sm">
+                            {new Date(project.createdAt).toLocaleDateString()}
+                          </td>
+                          <td className="px-6 py-4 text-right space-x-2">
+                            <Link href={`/admin/projects/${project._id}`}>
+                              <Button variant="outline" size="sm" className="gap-1">
+                                <Edit className="w-4 h-4" />
+                                {tc('edit')}
+                              </Button>
+                            </Link>
+                            <Button
+                              variant="outline"
+                              size="sm"
+                              className="gap-1 text-destructive hover:bg-destructive/10"
+                              onClick={() => handleDelete(project._id)}
+                            >
+                              <Trash2 className="w-4 h-4" />
+                              {tc('delete')}
+                            </Button>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </>
             )}
           </div>
 

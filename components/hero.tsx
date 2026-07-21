@@ -35,7 +35,7 @@ export function Hero() {
                 </span>
               </motion.div>
 
-              <h1 className="text-5xl md:text-6xl font-bold text-foreground leading-tight tracking-tight">
+              <h1 className="text-4xl md:text-6xl font-bold text-foreground leading-tight tracking-tight">
                 {t('titleLine1')}{' '}
                 <span className="bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">
                   {t('titleHighlight')}

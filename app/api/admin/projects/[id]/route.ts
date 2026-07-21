@@ -14,10 +14,12 @@ export async function DELETE(
       return Response.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
+    const { id } = await params
+
     const db: Db = await connectDB()
     const collection: Collection = db.collection('projects')
 
-    await collection.deleteOne({ _id: new ObjectId(params.id) })
+    await collection.deleteOne({ _id: new ObjectId(id) })
 
     return Response.json({ success: true })
   } catch (error) {
