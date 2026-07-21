@@ -4,9 +4,22 @@ import { Link } from '@/i18n/navigation'
 import { motion } from 'framer-motion'
 import { Button } from '@/components/ui/button'
 import { ArrowRight } from 'lucide-react'
-import Lottie from 'lottie-react'
+import dynamic from 'next/dynamic'
 import { useTranslations } from 'next-intl'
-import heroAnimation from '@/public/Tech.json'
+
+// Dynamic import for Lottie — avoids loading the heavy animation library in the critical JS bundle.
+// ssr: false because Lottie requires browser APIs (canvas/requestAnimationFrame).
+const Lottie = dynamic(() => import('lottie-react'), {
+  ssr: false,
+  loading: () => (
+    <div className="w-full aspect-square max-w-[450px] lg:max-w-[550px] flex items-center justify-center">
+      <div className="w-48 h-48 rounded-full bg-gradient-to-br from-primary/10 to-accent/5 animate-pulse" />
+    </div>
+  ),
+})
+
+// Lazy-load the heavy Lottie JSON data only when needed
+const heroAnimation = () => import('@/public/Tech.json').then(m => m.default)
 
 export function Hero() {
   const t = useTranslations('Hero')
@@ -18,23 +31,26 @@ export function Hero() {
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center py-12 md:py-20">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="space-y-8"
-          >
+
+          {/*
+            Text content is rendered immediately without opacity:0 to avoid LCP delay.
+            Framer Motion's initial={{ opacity: 0 }} was hiding this from the browser
+            until JS hydrated, causing a 2,690ms LCP element render delay.
+            We now only animate the subtle slide-up (y), keeping opacity at 1 always.
+          */}
+          <div className="space-y-8">
             <div className="space-y-4">
               <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.2 }}
+                initial={{ opacity: 0, y: -8 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
               >
                 <span className="inline-block px-3 py-1 bg-primary/10 border border-primary/30 rounded-full text-sm text-primary font-medium">
                   {t('badge')}
                 </span>
               </motion.div>
 
+              {/* h1 rendered with full opacity immediately — critical for LCP */}
               <h1 className="text-4xl md:text-6xl font-bold text-foreground leading-tight tracking-tight">
                 {t('titleLine1')}{' '}
                 <span className="bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">
@@ -42,12 +58,18 @@ export function Hero() {
                 </span>
               </h1>
 
+              {/* LCP element — kept fully visible immediately, no opacity animation */}
               <p className="text-xl text-muted-foreground leading-relaxed">
                 {t('description')}
               </p>
             </div>
 
-            <div className="flex flex-wrap gap-4">
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              className="flex flex-wrap gap-4"
+            >
               <Link href="/contact">
                 <Button size="lg" className="gap-2">
                   {t('getStarted')}
@@ -57,9 +79,14 @@ export function Hero() {
               <Link href="/portfolio">
                 <Button size="lg" variant="outline">{t('viewWork')}</Button>
               </Link>
-            </div>
+            </motion.div>
 
-            <div className="flex gap-8 pt-8 border-t border-border">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.6, delay: 0.5 }}
+              className="flex gap-8 pt-8 border-t border-border"
+            >
               <div>
                 <div className="text-3xl font-bold text-primary">50+</div>
                 <p className="text-sm text-muted-foreground">{t('projectsDelivered')}</p>
@@ -72,27 +99,35 @@ export function Hero() {
                 <div className="text-3xl font-bold text-primary">10y+</div>
                 <p className="text-sm text-muted-foreground">{t('industryExperience')}</p>
               </div>
-            </div>
-          </motion.div>
+            </motion.div>
+          </div>
 
+          {/* Lottie animation — deferred, doesn't block initial render */}
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
             className="relative h-72 sm:h-96 lg:h-[500px] w-full flex items-center justify-center"
           >
             <div className="absolute w-72 h-72 bg-gradient-to-br from-primary via-accent to-secondary rounded-full blur-3xl opacity-25 animate-pulse" />
             <div className="relative z-10 w-full max-w-[450px] lg:max-w-[550px] aspect-square flex items-center justify-center">
-              <Lottie
-                animationData={heroAnimation}
-                loop={true}
-                autoplay={true}
-                className="w-full h-full object-contain"
-              />
+              <LottieAnimation />
             </div>
           </motion.div>
         </div>
       </div>
     </section>
+  )
+}
+
+// Separate component so the dynamic import resolves after the text content is painted
+function LottieAnimation() {
+  return (
+    <Lottie
+      animationData={heroAnimation}
+      loop={true}
+      autoplay={true}
+      className="w-full h-full object-contain"
+    />
   )
 }

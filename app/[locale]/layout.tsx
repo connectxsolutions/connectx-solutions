@@ -26,7 +26,6 @@ export async function generateMetadata({
   return {
     title: t('title'),
     description: t('description'),
-    // تم حذف وسم generator غير الضروري الذي يحقن أحياناً ميتاداتا مسببة لمشاكل الهيدريشن
     icons: {
       icon: [
         {
