@@ -161,9 +161,95 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground antialiased selection:bg-primary/20 selection:text-primary;
   }
   html {
-    @apply font-sans;
+    @apply font-sans scroll-smooth;
   }
 }
+
+/* Linear / Vercel style Ambient Background Mesh & Grid Patterns */
+.bg-grid-pattern {
+  background-size: 32px 32px;
+  background-image: 
+    linear-gradient(to right, rgba(120, 119, 198, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(120, 119, 198, 0.05) 1px, transparent 1px);
+}
+
+.dark .bg-grid-pattern {
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+}
+
+.bg-dot-pattern {
+  background-size: 24px 24px;
+  background-image: radial-gradient(circle, rgba(120, 119, 198, 0.12) 1px, transparent 1px);
+}
+
+.dark .bg-dot-pattern {
+  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+}
+
+/* Glassmorphism & Shimmer Border Card */
+.glass-card {
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(220, 215, 209, 0.6);
+}
+
+.dark .glass-card {
+  background: rgba(19, 27, 54, 0.55);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-card-hover {
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-card-hover:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 20px 40px -15px rgba(210, 132, 67, 0.12);
+  border-color: rgba(210, 132, 67, 0.35);
+}
+
+/* Infinite Marquee Animation Keyframes */
+@keyframes marquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes marquee-reverse {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0%); }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 35s linear infinite;
+}
+
+.animate-marquee-reverse {
+  display: flex;
+  width: max-content;
+  animation: marquee-reverse 35s linear infinite;
+}
+
+.animate-marquee:hover,
+.animate-marquee-reverse:hover {
+  animation-play-state: paused;
+}
+
+/* Glowing Radial Spotlights */
+.spotlight-primary {
+  background: radial-gradient(circle, rgba(210, 132, 67, 0.18) 0%, rgba(210, 132, 67, 0) 70%);
+}
+
+.spotlight-secondary {
+  background: radial-gradient(circle, rgba(55, 113, 194, 0.18) 0%, rgba(55, 113, 194, 0) 70%);
+}
+

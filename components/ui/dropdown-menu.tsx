@@ -5,8 +5,8 @@ import { cn } from '@/lib/utils'
 
 interface DropdownMenuContextValue {
   open: boolean
-  setOpen: (open: boolean) => void
-  wrapperRef: React.RefObject<HTMLDivElement>
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>
+  wrapperRef: React.RefObject<HTMLDivElement | null>
   close: () => void
 }
 
@@ -52,7 +52,7 @@ export function DropdownMenu({ children }: { children: React.ReactNode }) {
 
 interface DropdownMenuTriggerProps {
   asChild?: boolean
-  children: React.ReactElement
+  children: React.ReactElement<any>
 }
 
 export function DropdownMenuTrigger({ asChild, children }: DropdownMenuTriggerProps) {
@@ -65,13 +65,13 @@ export function DropdownMenuTrigger({ asChild, children }: DropdownMenuTriggerPr
 
   const handleClick = (event: React.MouseEvent) => {
     setOpen(prev => !prev)
-    if (children.props.onClick) {
+    if (children.props?.onClick) {
       children.props.onClick(event)
     }
   }
 
   const triggerProps = {
-    'aria-haspopup': 'menu',
+    'aria-haspopup': 'menu' as const,
     'aria-expanded': open,
     onClick: handleClick,
   }

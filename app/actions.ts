@@ -8,7 +8,7 @@ import { Db, Collection } from 'mongodb'
 import cloudinary from '@/lib/cloudinary'
 import type { UploadApiResponse } from 'cloudinary'
 
-async function uploadImageToCloudinary(file: File) {
+async function uploadImageToCloudinary(file: File | null | undefined) {
   if (!file || file.size === 0) {
     return undefined
   }
@@ -22,8 +22,8 @@ async function uploadImageToCloudinary(file: File) {
         resource_type: 'image',
       },
       (error, result) => {
-        if (error) {
-          return reject(error)
+        if (error || !result) {
+          return reject(error || new Error('Upload failed'))
         }
         resolve(result)
       }

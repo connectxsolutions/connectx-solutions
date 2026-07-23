@@ -1,8 +1,8 @@
 {
   "Metadata": {
-    "title": "ConnectX Solutions - Premium Digital Agency",
-    "description": "Transforming businesses with cutting-edge digital solutions, innovative design, and strategic technology partnerships.",
-    "ogDescription": "Transforming businesses with cutting-edge digital solutions."
+    "title": "ConnectX Solutions — Software Development Studio",
+    "description": "ConnectX Solutions builds web applications, mobile apps, and digital products focused on clean architecture, performance, and long-term maintainability.",
+    "ogDescription": "We build scalable digital products built to last."
   },
   "Common": {
     "logoAlt": "ConnectX Solutions logo",
@@ -36,53 +36,222 @@
   "Navigation": {
     "services": "Services",
     "portfolio": "Portfolio",
+    "process": "Process",
+    "whyUs": "Why Us",
+    "tech": "Technologies",
     "about": "About",
     "contact": "Contact",
     "signIn": "Sign In",
     "signOut": "Sign Out",
-    "dashboard": "Dashboard"
+    "dashboard": "Dashboard",
+    "bookMeeting": "Book a Consultation"
   },
   "Hero": {
-    "badge": "Welcome to ConnectX",
-    "titleLine1": "Digital Solutions That",
-    "titleHighlight": "Transform",
-    "description": "We create cutting-edge digital experiences that empower businesses to succeed in the modern landscape. From strategy to execution, we're your partner in growth.",
-    "getStarted": "Get Started",
+    "badge": "Modern Software Engineering",
+    "titleLine1": "We Build Scalable Digital Products",
+    "titleHighlight": "Built to Last",
+    "description": "ConnectX Solutions is a software development studio. We craft web applications, mobile platforms, and digital products focused on clean architecture, long-term maintainability, and real business value.",
+    "getStarted": "Start a Project",
+    "bookMeeting": "Book a Consultation",
     "viewWork": "View Our Work",
-    "projectsDelivered": "Projects Delivered",
-    "happyClients": "Happy Clients",
-    "industryExperience": "Industry Experience"
+    "trustedBy": "Built with modern, production-grade technologies",
+    "cardLatencyTitle": "Performance Focus",
+    "cardLatencyVal": "Core Web Vitals",
+    "cardUptimeTitle": "Architecture",
+    "cardUptimeVal": "Scalable by Design",
+    "cardSecurityTitle": "Engineering",
+    "cardSecurityVal": "Security-First Mindset"
+  },
+  "TrustedBy": {
+    "title": "BUILT WITH THESE TECHNOLOGIES"
   },
   "Services": {
-    "title": "Our Services",
-    "subtitle": "Comprehensive digital solutions tailored to your business needs",
+    "badge": "What We Build",
+    "title": "Engineering & Design Services",
+    "subtitle": "End-to-end software development, from product design to deployment and ongoing maintenance.",
+    "learnMore": "Learn More",
     "webDev": {
-      "title": "Web Development",
-      "description": "Custom-built, scalable web applications designed for performance and user experience."
+      "title": "Web Application Development",
+      "description": "Fast, accessible web applications built with modern frameworks. We handle architecture, implementation, and deployment.",
+      "tech": ["Next.js", "React", "TypeScript", "Tailwind CSS", "Node.js"]
     },
     "uiux": {
-      "title": "UI/UX Design",
-      "description": "Beautiful, intuitive designs that delight users and drive conversions."
+      "title": "Product UI/UX Design",
+      "description": "User-centered interfaces built around real workflows. From wireframes and prototypes to polished design systems.",
+      "tech": ["Figma", "Design Systems", "Prototyping", "User Research", "Accessibility"]
     },
     "product": {
-      "title": "Product Strategy",
-      "description": "Strategic guidance to bring your product vision to life with market insights."
+      "title": "Cloud & Backend Architecture",
+      "description": "Scalable backend systems, REST and GraphQL APIs, and cloud infrastructure designed for reliability.",
+      "tech": ["AWS", "Docker", "Vercel", "PostgreSQL", "MongoDB"]
     },
     "analytics": {
-      "title": "Analytics & Optimization",
-      "description": "Data-driven insights to optimize your digital presence and improve ROI."
+      "title": "Mobile App Development",
+      "description": "Cross-platform iOS and Android applications built with Flutter or React Native, integrated with your existing backend.",
+      "tech": ["Flutter", "React Native", "Firebase", "REST & GraphQL", "iOS / Android"]
     },
     "team": {
-      "title": "Team Augmentation",
-      "description": "Extend your team with experienced professionals aligned with your goals."
+      "title": "Development Team Extension",
+      "description": "Need extra engineering capacity? We integrate with your existing team and sprint process to help ship faster.",
+      "tech": ["Agile", "Code Reviews", "CI/CD", "Documentation", "Sprint Planning"]
     },
     "security": {
-      "title": "Security & Compliance",
-      "description": "Enterprise-grade security and compliance solutions for peace of mind."
+      "title": "Performance & Security Review",
+      "description": "We audit existing codebases for security issues, slow load times, accessibility gaps, and SEO problems.",
+      "tech": ["Lighthouse Audit", "Security Review", "Accessibility", "SEO Audit", "Code Quality"]
     }
   },
+  "PortfolioShowcase": {
+    "badge": "Selected Work",
+    "title": "Projects We're Proud Of",
+    "subtitle": "A look at some of the digital products and platforms we've helped bring to life.",
+    "all": "All Projects",
+    "webApps": "Web Apps",
+    "mobileApps": "Mobile Apps",
+    "cloudAi": "Cloud & API",
+    "viewAll": "View Full Portfolio",
+    "noProjects": "Portfolio projects will appear here as they are published.",
+    "loadingProjects": "Loading projects..."
+  },
+  "Process": {
+    "badge": "How We Work",
+    "title": "Our Development Process",
+    "subtitle": "A clear, structured approach that keeps you informed at every stage of your project.",
+    "step1": {
+      "num": "01",
+      "title": "Discovery & Requirements",
+      "desc": "We start by understanding your goals, audience, and technical requirements. No assumptions — just clear questions and careful listening."
+    },
+    "step2": {
+      "num": "02",
+      "title": "Architecture & Planning",
+      "desc": "We map out the system architecture, data models, and project milestones before writing a single line of code."
+    },
+    "step3": {
+      "num": "03",
+      "title": "UI/UX Design",
+      "desc": "We create wireframes, interactive prototypes, and a design system that reflects your brand and serves your users."
+    },
+    "step4": {
+      "num": "04",
+      "title": "Development",
+      "desc": "Clean, well-documented code built in iterative sprints with regular check-ins. You see progress throughout the build."
+    },
+    "step5": {
+      "num": "05",
+      "title": "Testing & QA",
+      "desc": "Automated and manual testing across devices, browsers, and user flows. Security and accessibility are checked here too."
+    },
+    "step6": {
+      "num": "06",
+      "title": "Deployment",
+      "desc": "We handle the full deployment process — CI/CD pipelines, hosting configuration, DNS, and monitoring setup."
+    },
+    "step7": {
+      "num": "07",
+      "title": "Maintenance & Support",
+      "desc": "After launch, we remain available for bug fixes, updates, new features, and ongoing technical support."
+    }
+  },
+  "WhyChooseUs": {
+    "badge": "Why ConnectX",
+    "title": "How We Work With You",
+    "subtitle": "We build long-term technical partnerships grounded in transparency, clean engineering, and honest communication.",
+    "feature1": {
+      "title": "Structured Development Process",
+      "desc": "Milestone-based delivery with regular demos so you always know where your project stands."
+    },
+    "feature2": {
+      "title": "Clean, Maintainable Code",
+      "desc": "TypeScript, modular architecture, and proper documentation so your team can confidently own the codebase."
+    },
+    "feature3": {
+      "title": "Responsive on All Devices",
+      "desc": "Every interface we build is designed to work well on mobile, tablet, and desktop from the start."
+    },
+    "feature4": {
+      "title": "Performance-Focused Engineering",
+      "desc": "We optimize Core Web Vitals, accessibility, and SEO as part of the build — not an afterthought."
+    },
+    "feature5": {
+      "title": "Architecture That Scales",
+      "desc": "We design systems with growth in mind — clean separation of concerns, sensible data models, and room to expand."
+    },
+    "feature6": {
+      "title": "Direct Team Access",
+      "desc": "You communicate directly with the engineers building your product — no account managers in between."
+    },
+    "comparisonTitle": "ConnectX vs Traditional Alternatives",
+    "colConnectX": "ConnectX Solutions",
+    "colAgencies": "Traditional Agencies",
+    "colFreelancers": "Freelancers",
+    "row1": "Technical Lead on Every Project",
+    "row2": "Performance Optimization Built-In",
+    "row3": "Transparent Progress Demos",
+    "row4": "Full Code Ownership & Documentation",
+    "row5": "Post-Launch Support Available"
+  },
+  "Technologies": {
+    "badge": "Tech Stack",
+    "title": "Technologies We Work With",
+    "subtitle": "We pick tools based on the problem — proven, well-supported technologies that make long-term maintenance straightforward.",
+    "catFrontend": "Frontend & Mobile",
+    "catBackend": "Backend & Cloud",
+    "catDatabase": "Databases & Storage",
+    "catTools": "DevOps & Design"
+  },
+  "Statistics": {
+    "stat1Label": "Projects Delivered",
+    "stat1Desc": "Web apps, mobile platforms, and APIs shipped to production",
+    "stat2Label": "Client Relationships",
+    "stat2Desc": "From early-stage startups to growing businesses",
+    "stat3Label": "Countries",
+    "stat3Desc": "Clients from Egypt, UAE, Saudi Arabia, and beyond",
+    "stat4Label": "Long-Term Clients",
+    "stat4Desc": "Clients who return for follow-up projects and ongoing work",
+    "stat5Label": "Focused Team",
+    "stat5Desc": "Senior engineers and designers working on your project"
+  },
+  "Testimonials": {
+    "badge": "Client Feedback",
+    "title": "What Clients Say",
+    "subtitle": "Testimonials from clients who have worked with us on real projects.",
+    "emptyTitle": "Testimonials Coming Soon",
+    "emptySubtitle": "We're collecting feedback from clients. Check back soon.",
+    "test1": {
+      "name": "Sarah Al-Mansoor",
+      "role": "Chief Technology Officer",
+      "company": "FinPulse Global",
+      "quote": "ConnectX transformed our legacy fintech core into a blazing-fast Next.js platform. Their commitment to clean architecture and Lighthouse performance saved us months of dev time.",
+      "rating": 5
+    },
+    "test2": {
+      "name": "Marcus Vance",
+      "role": "Founder & CEO",
+      "company": "Aura Logistics",
+      "quote": "Working with ConnectX felt like adding a world-class engineering team to our company. They delivered our complex IoT logistics platform ahead of schedule with zero downtime.",
+      "rating": 5
+    },
+    "test3": {
+      "name": "David Chen",
+      "role": "Head of Product",
+      "company": "HealthPulse AI",
+      "quote": "The UI/UX refinement and mobile engineering ConnectX brought to our telemedicine app boosted our user retention by 70%. Their attention to micro-interactions is unmatched.",
+      "rating": 5
+    }
+  },
+  "CTA": {
+    "badge": "Let's Build Together",
+    "title": "Ready to start your next project?",
+    "subtitle": "Tell us what you're building. We'll get back to you within one business day.",
+    "bookMeeting": "Book a Consultation",
+    "contactUs": "Send a Message",
+    "perk1": "No commitment required",
+    "perk2": "Direct response from our team",
+    "perk3": "Technical discussion on your first call"
+  },
   "Footer": {
-    "tagline": "Transforming businesses through digital innovation.",
+    "tagline": "Modern software built for growth and long-term reliability.",
     "services": "Services",
     "company": "Company",
     "contact": "Contact",
@@ -99,25 +268,25 @@
     "cookies": "Cookies"
   },
   "About": {
-    "title": "About ConnectX",
-    "subtitle": "Pioneering digital transformation for over a decade",
-    "missionTitle": "Our Mission",
-    "missionText": "At ConnectX, we believe that great digital experiences are the foundation of successful businesses. Our mission is to empower organizations with cutting-edge technology solutions that drive growth, innovation, and lasting impact in the digital economy.",
+    "title": "About ConnectX Solutions",
+    "subtitle": "A software development studio based in Egypt",
+    "missionTitle": "What We Do",
+    "missionText": "ConnectX Solutions builds web applications, mobile platforms, and digital products. We work with clients from early-stage projects to established businesses, focusing on clean engineering, honest communication, and long-term maintainability.",
     "storyTitle": "Our Story",
-    "storyText1": "Founded in 2014, ConnectX started as a small team of passionate developers and designers with a shared vision: to create digital solutions that matter. Over the years, we've grown into a full-service agency trusted by startups and enterprises alike.",
-    "storyText2": "From humble beginnings to becoming industry leaders, our journey has been defined by our commitment to excellence, innovation, and client success. Today, we proudly serve clients across diverse industries, delivering solutions that exceed expectations.",
-    "teamMembers": "Team Members & Partners",
-    "countriesServed": "Countries Served",
-    "clientSatisfaction": "Client Satisfaction Rate",
-    "valuesTitle": "Our Values",
-    "excellence": "Excellence",
-    "excellenceDesc": "We deliver exceptional quality in everything we do",
-    "innovation": "Innovation",
-    "innovationDesc": "We embrace new technologies and creative solutions",
-    "partnership": "Partnership",
-    "partnershipDesc": "We work as an extension of your team",
-    "integrity": "Integrity",
-    "integrityDesc": "We operate with transparency and honesty"
+    "storyText1": "ConnectX Solutions was founded with a simple goal: to build software that works well and is easy to maintain. We started with web development and have since expanded to include mobile apps, cloud infrastructure, and product design.",
+    "storyText2": "We are a small, focused team. We take on projects where we can do meaningful work and form real partnerships with our clients. Our approach is straightforward: understand the problem, plan carefully, build well, and support what we deliver.",
+    "basedIn": "Based in Assiut, Egypt",
+    "servingClients": "Serving clients locally and internationally",
+    "contactUs": "Contact Us",
+    "valuesTitle": "How We Work",
+    "excellence": "Quality Over Quantity",
+    "excellenceDesc": "We prefer fewer projects done well over many projects done quickly",
+    "innovation": "Practical Technology",
+    "innovationDesc": "We choose tools that fit the problem, not the trend of the month",
+    "partnership": "Long-Term Thinking",
+    "partnershipDesc": "We build with maintainability in mind so your team can own the code",
+    "integrity": "Honest Communication",
+    "integrityDesc": "We tell you what's realistic, not just what sounds good"
   },
   "Contact": {
     "title": "Get in Touch",
