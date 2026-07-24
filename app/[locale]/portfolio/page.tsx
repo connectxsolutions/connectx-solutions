@@ -75,6 +75,7 @@ export default function Portfolio() {
                             src={project.image}
                             alt={project.title}
                             fill
+                            priority={index < 2}
                             className="object-cover group-hover:scale-110 transition-transform duration-300"
                           />
                         )}

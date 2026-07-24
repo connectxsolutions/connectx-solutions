@@ -8,6 +8,7 @@ import { useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
+import { BrandLogo } from "@/components/brand-logo";
 
 export default function LoginForm() {
   const t = useTranslations('Login')
@@ -50,15 +51,8 @@ export default function LoginForm() {
     <div className="w-full max-w-md">
       <div className="bg-card border border-border rounded-2xl p-8">
         <div className="flex flex-col items-center text-center mb-8">
-          <div className="mb-4">
-            <Image
-              src="/logo without background.png"
-              alt={tc('logoAlt')}
-              width={180}
-              height={50}
-              className="object-contain"
-              priority
-            />
+          <div className="mb-4 flex justify-center">
+            <BrandLogo className="w-48 h-12" priority />
           </div>
 
           <h1 className="text-2xl font-bold text-foreground">{t('title')}</h1>

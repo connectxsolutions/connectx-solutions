@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Alexandria:wght@400;600;700;800;900&family=Outfit:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@500;700&family=Tajawal:wght@400;500;700;800;900&display=swap');
 @import 'tailwindcss';
 @import 'tw-animate-css';
 @import 'shadcn/tailwind.css';
@@ -5,9 +6,20 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  --font-heading: var(--font-sans);
-  --font-sans: var(--font-geist-sans), 'Geist Fallback';
+  --font-heading: var(--font-lustra);
+  --font-sans: var(--font-lustra);
   --font-mono: var(--font-geist-mono), 'Geist Mono Fallback';
+
+  --font-lustra: var(--font-lustra);
+  --font-uni-sans: var(--font-uni-sans);
+  --font-bokra: var(--font-bokra);
+
+  --color-brand-light: #f0f0f0;
+  --color-brand-dark: #332b28;
+  --color-brand-orange-1: #fe8101;
+  --color-brand-orange-2: #fe6402;
+  --color-brand-orange-3: #fd3c03;
+
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -50,109 +62,118 @@
 
 :root {
   color-scheme: light;
-  --background: #f8f6f1;
-  --foreground: #1f1c16;
+
+  /* Brand Typography Variables */
+  --font-lustra: 'Lustra', 'Outfit', 'Space Grotesk', system-ui, sans-serif;
+  --font-uni-sans: 'Uni Sans', 'UNI SANS', 'Outfit', system-ui, sans-serif;
+  --font-bokra: 'Bokra', '29LT Bokra', 'Alexandria', 'Tajawal', system-ui, sans-serif;
+
+  /* Brand Visual Identity Colors (Light Mode) */
+  --background: #f0f0f0;
+  --foreground: #332b28;
   --card: #ffffff;
-  --card-foreground: #1f1c16;
+  --card-foreground: #332b28;
   --popover: #ffffff;
-  --popover-foreground: #1f1c16;
-  --primary: #c56f2f;
+  --popover-foreground: #332b28;
+  --primary: #fe6402;
   --primary-foreground: #ffffff;
-  --secondary: #2f549b;
-  --secondary-foreground: #ffffff;
-  --muted: #f0ece7;
-  --muted-foreground: #6b6560;
-  --accent: #5d89d2;
+  --secondary: #332b28;
+  --secondary-foreground: #f0f0f0;
+  --muted: #e4e1dc;
+  --muted-foreground: #6e6561;
+  --accent: #fe8101;
   --accent-foreground: #ffffff;
-  --destructive: #d6453b;
-  --border: #dcd7d1;
-  --input: #f1ebe3;
-  --ring: #c56f2f;
-  --chart-1: #c56f2f;
-  --chart-2: #5d89d2;
-  --chart-3: #8ca9d9;
-  --chart-4: #d8e3f6;
-  --chart-5: #eef4fb;
+  --destructive: #fd3c03;
+  --border: #d8d3cd;
+  --input: #e4e1dc;
+  --ring: #fe6402;
+  --chart-1: #fe8101;
+  --chart-2: #fe6402;
+  --chart-3: #fd3c03;
+  --chart-4: #332b28;
+  --chart-5: #a89f9a;
   --radius: 0.625rem;
   --sidebar: #ffffff;
-  --sidebar-foreground: #1f1c16;
-  --sidebar-primary: #c56f2f;
+  --sidebar-foreground: #332b28;
+  --sidebar-primary: #fe6402;
   --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: #5d89d2;
+  --sidebar-accent: #fe8101;
   --sidebar-accent-foreground: #ffffff;
-  --sidebar-border: #dcd7d1;
-  --sidebar-ring: #c56f2f;
+  --sidebar-border: #d8d3cd;
+  --sidebar-ring: #fe6402;
 }
 
 .dark {
   color-scheme: dark;
-  --background: #0c1226;
-  --foreground: #f2f4f9;
-  --card: #131b36;
-  --card-foreground: #f2f4f9;
-  --popover: #131b36;
-  --popover-foreground: #f2f4f9;
-  --primary: #d28443;
-  --primary-foreground: #0c1226;
-  --secondary: #3771c2;
-  --secondary-foreground: #f2f4f9;
-  --muted: #1f2945;
-  --muted-foreground: #9eb0d3;
-  --accent: #75a4e3;
-  --accent-foreground: #0c1226;
-  --destructive: #ef4444;
-  --border: #202a46;
-  --input: #152040;
-  --ring: #d28443;
-  --chart-1: #d28443;
-  --chart-2: #75a4e3;
-  --chart-3: #91b5ea;
-  --chart-4: #aec8f6;
-  --chart-5: #dbe7fb;
-  --sidebar: #131b36;
-  --sidebar-foreground: #f2f4f9;
-  --sidebar-primary: #d28443;
-  --sidebar-primary-foreground: #0c1226;
-  --sidebar-accent: #75a4e3;
-  --sidebar-accent-foreground: #0c1226;
-  --sidebar-border: #202a46;
-  --sidebar-ring: #d28443;
+
+  /* Brand Visual Identity Colors (Dark Mode) */
+  --background: #332b28;
+  --foreground: #f0f0f0;
+  --card: #27201e;
+  --card-foreground: #f0f0f0;
+  --popover: #27201e;
+  --popover-foreground: #f0f0f0;
+  --primary: #fe8101;
+  --primary-foreground: #ffffff;
+  --secondary: #443a37;
+  --secondary-foreground: #f0f0f0;
+  --muted: #443a37;
+  --muted-foreground: #b8b0aa;
+  --accent: #fd3c03;
+  --accent-foreground: #ffffff;
+  --destructive: #fd3c03;
+  --border: #4a403d;
+  --input: #3a312e;
+  --ring: #fe8101;
+  --chart-1: #fe8101;
+  --chart-2: #fe6402;
+  --chart-3: #fd3c03;
+  --chart-4: #f0f0f0;
+  --chart-5: #b8b0aa;
+  --sidebar: #27201e;
+  --sidebar-foreground: #f0f0f0;
+  --sidebar-primary: #fe8101;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #fd3c03;
+  --sidebar-accent-foreground: #ffffff;
+  --sidebar-border: #4a403d;
+  --sidebar-ring: #fe8101;
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not(.light) {
     color-scheme: dark;
-    --background: #0c1226;
-    --foreground: #f2f4f9;
-    --card: #131b36;
-    --card-foreground: #f2f4f9;
-    --popover: #131b36;
-    --popover-foreground: #f2f4f9;
-    --primary: #d28443;
-    --primary-foreground: #0c1226;
-    --secondary: #3771c2;
-    --secondary-foreground: #f2f4f9;
-    --muted: #1f2945;
-    --muted-foreground: #9eb0d3;
-    --accent: #75a4e3;
-    --accent-foreground: #0c1226;
-    --destructive: #ef4444;
-    --border: #202a46;
-    --input: #152040;
-    --ring: #d28443;
-    --chart-1: #d28443;
-    --chart-2: #75a4e3;
-    --chart-3: #91b5ea;
-    --chart-4: #aec8f6;
-    --chart-5: #dbe7fb;
-    --sidebar: #131b36;
-    --sidebar-foreground: #f2f4f9;
-    --sidebar-primary: #d28443;
-    --sidebar-primary-foreground: #0c1226;
-    --sidebar-accent: #75a4e3;
-    --sidebar-accent-foreground: #0c1226;
-    --sidebar-border: #202a46;
-    --sidebar-ring: #d28443;
+    --background: #332b28;
+    --foreground: #f0f0f0;
+    --card: #27201e;
+    --card-foreground: #f0f0f0;
+    --popover: #27201e;
+    --popover-foreground: #f0f0f0;
+    --primary: #fe8101;
+    --primary-foreground: #ffffff;
+    --secondary: #443a37;
+    --secondary-foreground: #f0f0f0;
+    --muted: #443a37;
+    --muted-foreground: #b8b0aa;
+    --accent: #fd3c03;
+    --accent-foreground: #ffffff;
+    --destructive: #fd3c03;
+    --border: #4a403d;
+    --input: #3a312e;
+    --ring: #fe8101;
+    --chart-1: #fe8101;
+    --chart-2: #fe6402;
+    --chart-3: #fd3c03;
+    --chart-4: #f0f0f0;
+    --chart-5: #b8b0aa;
+    --sidebar: #27201e;
+    --sidebar-foreground: #f0f0f0;
+    --sidebar-primary: #fe8101;
+    --sidebar-primary-foreground: #ffffff;
+    --sidebar-accent: #fd3c03;
+    --sidebar-accent-foreground: #ffffff;
+    --sidebar-border: #4a403d;
+    --sidebar-ring: #fe8101;
   }
 }
 
@@ -166,41 +187,58 @@
   html {
     @apply font-sans scroll-smooth;
   }
+  html[lang="ar"] body {
+    font-family: var(--font-bokra);
+  }
+  html[lang="en"] body {
+    font-family: var(--font-lustra);
+  }
+}
+
+/* Custom Font Utilities */
+.font-lustra {
+  font-family: var(--font-lustra);
+}
+.font-uni-sans {
+  font-family: var(--font-uni-sans);
+}
+.font-bokra {
+  font-family: var(--font-bokra);
 }
 
 /* Linear / Vercel style Ambient Background Mesh & Grid Patterns */
 .bg-grid-pattern {
   background-size: 32px 32px;
   background-image: 
-    linear-gradient(to right, rgba(120, 119, 198, 0.05) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(120, 119, 198, 0.05) 1px, transparent 1px);
+    linear-gradient(to right, rgba(51, 43, 40, 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(51, 43, 40, 0.06) 1px, transparent 1px);
 }
 
 .dark .bg-grid-pattern {
   background-image: 
-    linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+    linear-gradient(to right, rgba(240, 240, 240, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(240, 240, 240, 0.04) 1px, transparent 1px);
 }
 
 .bg-dot-pattern {
   background-size: 24px 24px;
-  background-image: radial-gradient(circle, rgba(120, 119, 198, 0.12) 1px, transparent 1px);
+  background-image: radial-gradient(circle, rgba(254, 100, 2, 0.12) 1px, transparent 1px);
 }
 
 .dark .bg-dot-pattern {
-  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+  background-image: radial-gradient(circle, rgba(254, 129, 1, 0.08) 1px, transparent 1px);
 }
 
 /* Glassmorphism & Shimmer Border Card */
 .glass-card {
-  background: rgba(255, 255, 255, 0.65);
+  background: rgba(255, 255, 255, 0.75);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(220, 215, 209, 0.6);
+  border: 1px solid rgba(216, 211, 205, 0.7);
 }
 
 .dark .glass-card {
-  background: rgba(19, 27, 54, 0.55);
+  background: rgba(39, 32, 30, 0.65);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border: 1px solid rgba(255, 255, 255, 0.08);
@@ -212,8 +250,8 @@
 
 .glass-card-hover:hover {
   transform: translateY(-3px);
-  box-shadow: 0 20px 40px -15px rgba(210, 132, 67, 0.12);
-  border-color: rgba(210, 132, 67, 0.35);
+  box-shadow: 0 20px 40px -15px rgba(254, 129, 1, 0.2);
+  border-color: rgba(254, 129, 1, 0.4);
 }
 
 /* Infinite Marquee Animation Keyframes */
@@ -246,10 +284,9 @@
 
 /* Glowing Radial Spotlights */
 .spotlight-primary {
-  background: radial-gradient(circle, rgba(210, 132, 67, 0.18) 0%, rgba(210, 132, 67, 0) 70%);
+  background: radial-gradient(circle, rgba(254, 129, 1, 0.22) 0%, rgba(254, 129, 1, 0) 70%);
 }
 
 .spotlight-secondary {
-  background: radial-gradient(circle, rgba(55, 113, 194, 0.18) 0%, rgba(55, 113, 194, 0) 70%);
+  background: radial-gradient(circle, rgba(253, 60, 3, 0.2) 0%, rgba(253, 60, 3, 0) 70%);
 }
-

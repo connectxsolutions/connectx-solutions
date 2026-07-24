@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button'
 import { useTranslations, useLocale } from 'next-intl'
 import { ThemeToggle } from './theme-toggle'
 import { LanguageSwitcher } from './language-switcher'
+import { BrandLogo } from './brand-logo'
 import { useState, useEffect, useRef } from 'react'
 import { Menu, X, ArrowUpRight, Calendar } from 'lucide-react'
 
@@ -80,16 +81,7 @@ export function Navigation() {
               className="flex items-center gap-3 group transition-transform duration-200 hover:scale-[1.02]"
               onClick={() => setMobileOpen(false)}
             >
-              <div className="relative w-36 sm:w-44 md:w-48 h-10">
-                <Image
-                  src="/logo without background.png"
-                  alt={tc('logoAlt')}
-                  fill
-                  sizes="(max-width: 640px) 144px, (max-width: 768px) 176px, 192px"
-                  className="object-contain"
-                  priority
-                />
-              </div>
+              <BrandLogo priority />
             </Link>
 
             {/* Desktop Nav Links */}

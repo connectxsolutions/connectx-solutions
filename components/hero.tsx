@@ -89,13 +89,13 @@ export function Hero() {
               <div className="flex flex-wrap items-center gap-6">
                 {/* Client Avatar Stack */}
                 <div className="flex items-center -space-x-2">
-                  <div className="w-9 h-9 rounded-full bg-gradient-to-tr from-amber-500 to-primary flex items-center justify-center text-xs font-bold text-white ring-2 ring-background">
+                  <div className="w-9 h-9 rounded-full bg-gradient-to-tr from-[#fe8101] to-[#fe6402] flex items-center justify-center text-xs font-bold text-white ring-2 ring-background">
                     SA
                   </div>
-                  <div className="w-9 h-9 rounded-full bg-gradient-to-tr from-blue-600 to-accent flex items-center justify-center text-xs font-bold text-white ring-2 ring-background">
+                  <div className="w-9 h-9 rounded-full bg-gradient-to-tr from-[#fe6402] to-[#fd3c03] flex items-center justify-center text-xs font-bold text-white ring-2 ring-background">
                     MV
                   </div>
-                  <div className="w-9 h-9 rounded-full bg-gradient-to-tr from-emerald-500 to-teal-600 flex items-center justify-center text-xs font-bold text-white ring-2 ring-background">
+                  <div className="w-9 h-9 rounded-full bg-gradient-to-tr from-[#fd3c03] to-[#fe8101] flex items-center justify-center text-xs font-bold text-white ring-2 ring-background">
                     DC
                   </div>
                   <div className="w-9 h-9 rounded-full bg-card border border-border flex items-center justify-center text-xs font-bold text-muted-foreground ring-2 ring-background">

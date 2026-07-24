@@ -92,6 +92,7 @@ export default function ProjectDetail() {
                   src={project.image}
                   alt={project.title}
                   fill
+                  priority
                   className="object-cover"
                 />
               </div>
