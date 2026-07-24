@@ -95,7 +95,7 @@ export function ServicesSection() {
                 className="group relative flex flex-col justify-between p-8 rounded-2xl glass-card glass-card-hover border border-border/60 hover:border-primary/40 shadow-sm hover:shadow-xl transition-all duration-300"
               >
                 {/* Subtle top card glow on hover */}
-                <div className={`absolute top-0 inset-x-0 h-1 bg-gradient-to-r ${service.accent} opacity-0 group-hover:opacity-100 rounded-t-2xl transition-opacity duration-300`} />
+                <div className={`absolute top-0 inset-x-0 h-1 bg-gradient-to-r ${service.accent} opacity-0 rounded-t-2xl transition-opacity duration-300 dark:opacity-100`} />
 
                 <div>
                   {/* Icon & Title */}

@@ -1,7 +1,10 @@
 import type { Metadata, Viewport } from 'next'
-import './globals.css'
-import { ThemeProvider } from '@/components/theme-provider'
 import Script from 'next/script'
+import { getLocale } from 'next-intl/server'
+import { ThemeProvider } from '@/components/theme-provider'
+import { GoogleAnalytics } from '@/components/google-analytics'
+import { fontVariables } from '@/lib/fonts'
+import './globals.css'
 
 export const metadata: Metadata = {
   title: 'ConnectX Solutions - Premium Digital Agency',
@@ -19,7 +22,7 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   colorScheme: 'dark light',
-  themeColor: [ 
+  themeColor: [
     { media: '(prefers-color-scheme: light)', color: '#f0f0f0' },
     { media: '(prefers-color-scheme: dark)', color: '#332b28' },
   ],
@@ -53,29 +56,30 @@ const jsonLd = {
   ],
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  const locale = await getLocale()
+  const dir = locale === 'ar' ? 'rtl' : 'ltr'
+
   return (
-    /* ✅ إضافة data-scroll-behavior لحل التحذير الثاني */
-    <html suppressHydrationWarning data-scroll-behavior="smooth">
-      <head>
-        <link rel="preconnect" href="https://res.cloudinary.com" />
-        <link rel="dns-prefetch" href="https://res.cloudinary.com" />
-        <link rel="preconnect" href="https://vitals.vercel-insights.com" />
+    <html lang={locale} dir={dir} suppressHydrationWarning data-scroll-behavior="smooth">
+      <body
+        className={`${fontVariables} font-sans antialiased bg-background text-foreground`}
+        suppressHydrationWarning
+      >
         <Script
+          id="organization-jsonld"
           type="application/ld+json"
+          strategy="afterInteractive"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify(jsonLd),
           }}
         />
-      </head>
-      <body className="font-sans antialiased bg-background text-foreground" suppressHydrationWarning>
-        <ThemeProvider>
-          {children}
-        </ThemeProvider>
+        <ThemeProvider>{children}</ThemeProvider>
+        <GoogleAnalytics />
       </body>
     </html>
   )
